@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wellen-Interferenz Simulation Pro</title>
+    <style>
+        :root {
+            --bg-color: #0b0c10;
+            --card-bg: rgba(22, 27, 34, 0.75);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --accent-cyan: #00f3ff;
+            --accent-pink: #ff0055;
+            --accent-yellow: #ffe600;
+            --text-main: #f0f6fc;
+            --text-muted: #8b949e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle at 50% 0%, #1a1f36 0%, var(--bg-color) 70%);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 1.6rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            background: linear-gradient(90deg, #ffffff, var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .canvas-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .canvas-card {
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            background-color: #000;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        #graphCanvas {
+            border-top: 1px solid var(--border-color);
+        }
+
+        .controls-card {
+            margin-top: 20px;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 20px 28px;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
+            max-width: 650px;
+            width: 100%;
+        }
+
+        .formula-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .formula-group label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .formula-input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 8px 12px;
+        }
+
+        .formula-input-wrapper span {
+            font-family: monospace;
+            color: var(--accent-cyan);
+            font-size: 0.9rem;
+        }
+
+        input[type=text] {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-main);
+            font-family: monospace;
+            font-size: 0.9rem;
+            width: 100%;
+        }
+
+        .error-msg {
+            color: var(--accent-pink);
+            font-size: 0.75rem;
+            display: none;
+        }
+
+        .slider-row {
+            display: flex;
+            gap: 20px;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+            min-width: 130px;
+        }
+
+        label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            font-weight: 500;
+        }
+
+        label span {
+            color: var(--text-main);
+            font-family: monospace;
+        }
+
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            height: 5px;
+            border-radius: 3px;
+            outline: none;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent-cyan);
+            cursor: pointer;
+            box-shadow: 0 0 10px var(--accent-cyan);
+            transition: transform 0.1s;
+        }
+
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .action-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+
+        .checkbox-group-wrapper {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            user-select: none;
+            font-size: 0.8rem;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        .checkbox-group input {
+            cursor: pointer;
+            width: 15px;
+            height: 15px;
+        }
+
+        #peaks:checked { accent-color: var(--accent-cyan); }
+        #troughs:checked { accent-color: var(--accent-pink); }
+        #zeros:checked { accent-color: var(--accent-yellow); }
+        #showGraph:checked { accent-color: var(--accent-cyan); }
+        #showCircles:checked { accent-color: var(--accent-cyan); }
+
+        .btn-pause {
+            background: linear-gradient(135deg, var(--accent-cyan), #0077ff);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-pause:hover {
+            opacity: 0.9;
+            box-shadow: 0 0 12px rgba(0, 243, 255, 0.4);
+        }
+
+        .btn-pause.paused {
+            background: linear-gradient(135deg, #ff4757, #ff6b81);
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Konzentrische Welleninterferenz</h1>
+
+    <div class="canvas-wrapper">
+        <div class="canvas-card">
+            <canvas id="waveCanvas" width="600" height="400"></canvas>
+            <canvas id="graphCanvas" width="600" height="150"></canvas>
+        </div>
+    </div>
+
+    <div class="controls-card">
+        <div class="formula-group">
+            <label for="formulaInput">Wellengleichung f(r, t, k)</label>
+            <div class="formula-input-wrapper">
+                <span>f(r,t) =</span>
+                <input type="text" id="formulaInput" value="Math.sin(k * r - t)">
+            </div>
+            <span id="formulaError" class="error-msg">Ungültiger mathematischer Ausdruck</span>
+        </div>
+
+        <div class="slider-row">
+            <div class="control-group">
+                <label for="wavelength">Wellenlänge <span id="wavelength-val">30px</span></label>
+                <input type="range" id="wavelength" min="10" max="80" value="30">
+            </div>
+            
+            <div class="control-group">
+                <label for="distance">Abstand Zentren <span id="distance-val">100px</span></label>
+                <input type="range" id="distance" min="0" max="300" value="100">
+            </div>
+            
+            <div class="control-group">
+                <label for="speed">Tempo <span id="speed-val">2.0</span></label>
+                <input type="range" id="speed" min="0" max="5" value="2" step="0.5">
+            </div>
+        </div>
+
+        <div class="action-row">
+            <button id="toggleBtn" class="btn-pause">Anhalten</button>
+
+            <div class="checkbox-group-wrapper">
+                <label class="checkbox-group">
+                    <input type="checkbox" id="showCircles">
+                    <span>Kreis-Vektoren</span>
+                </label>
+
+                <label class="checkbox-group">
+                    <input type="checkbox" id="showGraph" checked>
+                    <span>Seitenansicht (1D)</span>
+                </label>
+
+                <label class="checkbox-group">
+                    <input type="checkbox" id="peaks">
+                    <span style="color: var(--accent-cyan);">Wellenberge</span>
+                </label>
+                
+                <label class="checkbox-group">
+                    <input type="checkbox" id="troughs">
+                    <span style="color: var(--accent-pink);">Wellentäler</span>
+                </label>
+
+                <label class="checkbox-group">
+                    <input type="checkbox" id="zeros">
+                    <span style="color: var(--accent-yellow);">Nulldurchgänge</span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const waveCanvas = document.getElementById('waveCanvas');
+        const waveCtx = waveCanvas.getContext('2d');
+
+        const graphCanvas = document.getElementById('graphCanvas');
+        const graphCtx = graphCanvas.getContext('2d');
+
+        const wavelengthInput = document.getElementById('wavelength');
+        const distanceInput = document.getElementById('distance');
+        const speedInput = document.getElementById('speed');
+        const formulaInput = document.getElementById('formulaInput');
+        const formulaError = document.getElementById('formulaError');
+        const toggleBtn = document.getElementById('toggleBtn');
+        
+        const markPeaks = document.getElementById('peaks');
+        const markTroughs = document.getElementById('troughs');
+        const markZeros = document.getElementById('zeros');
+        const showGraphCheckbox = document.getElementById('showGraph');
+        const showCirclesCheckbox = document.getElementById('showCircles');
+
+        const wavelengthVal = document.getElementById('wavelength-val');
+        const distanceVal = document.getElementById('distance-val');
+        const speedVal = document.getElementById('speed-val');
+
+        let wavelength = parseFloat(wavelengthInput.value);
+        let distance = parseFloat(distanceInput.value);
+        let speed = parseFloat(speedInput.value);
+        let time = 0;
+        let isRunning = true;
+
+        const width = waveCanvas.width;
+        const height = waveCanvas.height;
+        const imgData = waveCtx.createImageData(width, height);
+        const data = imgData.data;
+
+        const centerX = width / 2;
+        const centerY = height / 2;
+
+        let waveFunc = (r, t, k) => Math.sin(k * r - t);
+
+        function compileFormula() {
+            try {
+                const fn = new Function('r', 't', 'k', `return ${formulaInput.value};`);
+                fn(1, 0, 1);
+                waveFunc = fn;
+                formulaError.style.display = 'none';
+            } catch (err) {
+                formulaError.style.display = 'block';
+            }
+        }
+
+        function updateUI() {
+            graphCanvas.style.display = showGraphCheckbox.checked ? 'block' : 'none';
+            if (!isRunning) drawFrame();
+        }
+
+        formulaInput.addEventListener('input', () => {
+            compileFormula();
+            updateUI();
+        });
+
+        wavelengthInput.addEventListener('input', (e) => {
+            wavelength = parseFloat(e.target.value);
+            wavelengthVal.textContent = wavelength + 'px';
+            updateUI();
+        });
+
+        distanceInput.addEventListener('input', (e) => {
+            distance = parseFloat(e.target.value);
+            distanceVal.textContent = distance + 'px';
+            updateUI();
+        });
+
+        speedInput.addEventListener('input', (e) => {
+            speed = parseFloat(e.target.value);
+            speedVal.textContent = speed.toFixed(1);
+        });
+
+        [markPeaks, markTroughs, markZeros, showGraphCheckbox, showCirclesCheckbox].forEach(el => el.addEventListener('change', updateUI));
+
+        toggleBtn.addEventListener('click', () => {
+            isRunning = !isRunning;
+            if (isRunning) {
+                toggleBtn.textContent = 'Anhalten';
+                toggleBtn.classList.remove('paused');
+                animate();
+            } else {
+                toggleBtn.textContent = 'Fortsetzen';
+                toggleBtn.classList.add('paused');
+            }
+        });
+
+        function drawFrame() {
+            const k = (2 * Math.PI) / wavelength;
+            const source1X = centerX - distance / 2;
+            const source2X = centerX + distance / 2;
+
+            const showP = markPeaks.checked;
+            const showT = markTroughs.checked;
+            const showZ = markZeros.checked;
+            const useVectorMode = showCirclesCheckbox.checked;
+
+            const centerLineAmplitudes = new Float32Array(width);
+
+            if (useVectorMode) {
+                // Modus 1: Vektorkreise zeichnen
+                waveCtx.fillStyle = '#050608';
+                waveCtx.fillRect(0, 0, width, height);
+
+                const maxR = Math.sqrt(width * width + height * height);
+                const sources = [source1X, source2X];
+
+                sources.forEach(sx => {
+                    // Phasenverschiebung zur Radiusberechnung
+                    const phase = (time % (2 * Math.PI)) / k;
+                    let baseR = phase;
+
+                    while (baseR < maxR) {
+                        // 1. Wellenberg (sin = 1 -> Phase = PI/2)
+                        if (showP) {
+                            const rPeak = baseR + (Math.PI / 2) / k;
+                            if (rPeak > 0) drawVectorCircle(sx, centerY, rPeak, '#00f3ff', 1.5, []);
+                        }
+
+                        // 2. Nulldurchgang 1 (sin = 0 -> Phase = PI)
+                        if (showZ) {
+                            const rZero1 = baseR + Math.PI / k;
+                            if (rZero1 > 0) drawVectorCircle(sx, centerY, rZero1, '#ffe600', 1, [4, 4]);
+                        }
+
+                        // 3. Wellental (sin = -1 -> Phase = 3*PI/2)
+                        if (showT) {
+                            const rTrough = baseR + (3 * Math.PI / 2) / k;
+                            if (rTrough > 0) drawVectorCircle(sx, centerY, rTrough, '#ff0055', 1.5, []);
+                        }
+
+                        // 4. Nulldurchgang 2 (sin = 0 -> Phase = 2*PI)
+                        if (showZ) {
+                            const rZero2 = baseR + (2 * Math.PI) / k;
+                            if (rZero2 > 0) drawVectorCircle(sx, centerY, rZero2, '#ffe600', 1, [4, 4]);
+                        }
+
+                        baseR += wavelength;
+                    }
+                });
+
+                // Mittellinien-Amplituden für den 1D-Graph berechnen
+                for (let x = 0; x < width; x++) {
+                    const r1 = Math.abs(x - source1X);
+                    const r2 = Math.abs(x - source2X);
+                    let w1 = 0, w2 = 0;
+                    try {
+                        w1 = waveFunc(r1, time, k);
+                        w2 = waveFunc(r2, time, k);
+                    } catch (e) {}
+                    centerLineAmplitudes[x] = w1 + w2;
+                }
+
+            } else {
+                // Modus 2: Vollbild-Pixelberechnung
+                let index = 0;
+
+                for (let y = 0; y < height; y++) {
+                    const dySq = (y - centerY) * (y - centerY);
+                    const isCenterLine = (y === centerY);
+
+                    for (let x = 0; x < width; x++) {
+                        const dx1 = x - source1X;
+                        const dx2 = x - source2X;
+
+                        const r1 = Math.sqrt(dx1 * dx1 + dySq);
+                        const r2 = Math.sqrt(dx2 * dx2 + dySq);
+
+                        let wave1 = 0;
+                        let wave2 = 0;
+
+                        try {
+                            wave1 = waveFunc(r1, time, k);
+                            wave2 = waveFunc(r2, time, k);
+                        } catch (e) {}
+
+                        const amp = wave1 + wave2;
+
+                        if (isCenterLine) {
+                            centerLineAmplitudes[x] = amp;
+                        }
+
+                        let r = 0, g = 0, b = 0;
+                        let isMarked = false;
+
+                        if (showP && amp > 0.85) {
+                            r = 0; g = 243; b = 255;
+                            isMarked = true;
+                        } else if (showT && amp < -0.85) {
+                            r = 255; g = 0; b = 85;
+                            isMarked = true;
+                        } else if (showZ && Math.abs(amp) < 0.08) {
+                            r = 255; g = 230; b = 0;
+                            isMarked = true;
+                        }
+
+                        if (!isMarked) {
+                            const norm = Math.max(0, Math.min(1, (amp + 2) / 4));
+                            const val = Math.floor(norm * 180);
+                            r = val;
+                            g = val;
+                            b = val;
+                        }
+
+                        data[index]     = r;
+                        data[index + 1] = g;
+                        data[index + 2] = b;
+                        data[index + 3] = 255;
+
+                        index += 4;
+                    }
+                }
+
+                waveCtx.putImageData(imgData, 0, 0);
+            }
+
+            // Mittellinie
+            waveCtx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+            waveCtx.setLineDash([4, 4]);
+            waveCtx.beginPath();
+            waveCtx.moveTo(0, centerY);
+            waveCtx.lineTo(width, centerY);
+            waveCtx.stroke();
+            waveCtx.setLineDash([]);
+
+            // Zentren-Punkte
+            waveCtx.fillStyle = '#ffffff';
+            waveCtx.shadowColor = '#00f3ff';
+            waveCtx.shadowBlur = 8;
+            waveCtx.beginPath();
+            waveCtx.arc(source1X, centerY, 5, 0, Math.PI * 2);
+            waveCtx.arc(source2X, centerY, 5, 0, Math.PI * 2);
+            waveCtx.fill();
+            waveCtx.shadowBlur = 0;
+
+            if (showGraphCheckbox.checked) {
+                drawGraph(centerLineAmplitudes, source1X, source2X);
+            }
+        }
+
+        function drawVectorCircle(x, y, radius, color, width, dash) {
+            waveCtx.strokeStyle = color;
+            waveCtx.lineWidth = width;
+            waveCtx.setLineDash(dash);
+            waveCtx.beginPath();
+            waveCtx.arc(x, y, radius, 0, Math.PI * 2);
+            waveCtx.stroke();
+            waveCtx.setLineDash([]);
+        }
+
+        function drawGraph(amplitudes, s1X, s2X) {
+            const gWidth = graphCanvas.width;
+            const gHeight = graphCanvas.height;
+            const midY = gHeight / 2;
+            const scaleY = (gHeight / 2) - 15;
+
+            graphCtx.fillStyle = '#050608';
+            graphCtx.fillRect(0, 0, gWidth, gHeight);
+
+            // Raster
+            graphCtx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+            graphCtx.lineWidth = 1;
+            graphCtx.beginPath();
+            graphCtx.moveTo(0, midY);
+            graphCtx.lineTo(gWidth, midY);
+            graphCtx.moveTo(0, midY - scaleY);
+            graphCtx.lineTo(gWidth, midY - scaleY);
+            graphCtx.moveTo(0, midY + scaleY);
+            graphCtx.lineTo(gWidth, midY + scaleY);
+            graphCtx.stroke();
+
+            // Achsen-Beschriftung
+            graphCtx.fillStyle = '#8b949e';
+            graphCtx.font = '10px monospace';
+            graphCtx.fillText('+2.0', 8, midY - scaleY + 10);
+            graphCtx.fillText(' 0.0', 8, midY + 3);
+            graphCtx.fillText('-2.0', 8, midY + scaleY - 2);
+
+            // Erregerzentren
+            graphCtx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+            graphCtx.fillRect(s1X - 1, 0, 2, gHeight);
+            graphCtx.fillRect(s2X - 1, 0, 2, gHeight);
+
+            // Sinus-Verlauf
+            graphCtx.strokeStyle = '#00f3ff';
+            graphCtx.lineWidth = 2;
+            graphCtx.beginPath();
+
+            for (let x = 0; x < gWidth; x++) {
+                const amp = amplitudes[x];
+                const y = midY - (amp / 2) * scaleY;
+
+                if (x === 0) {
+                    graphCtx.moveTo(x, y);
+                } else {
+                    graphCtx.lineTo(x, y);
+                }
+            }
+            graphCtx.stroke();
+        }
+
+        function animate() {
+            if (!isRunning) return;
+            time += speed * 0.05;
+            drawFrame();
+            requestAnimationFrame(animate);
+        }
+
+        compileFormula();
+        animate();
+    </script>
+</body>
+</html>
