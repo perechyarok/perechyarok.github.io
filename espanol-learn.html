@@ -1,0 +1,899 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Español Learn</title>
+<style>
+:root{--bg:#f5f2ea;--card:#fffdf8;--fg:#201d18;--mut:#7a7466;--line:#e3ddcf;--acc:#c2452d;--ok:#2e8b57;--bad:#c0392b;--warn:#d98a2b;--blue:#2a6fb0;--sh:0 1px 3px #0001,0 8px 24px #0001}
+[data-theme=dark]{--bg:#17161a;--card:#212026;--fg:#ece8df;--mut:#9a9588;--line:#37353d;--acc:#ec6a4f;--ok:#4cc38a;--bad:#ef6a5b;--warn:#f0a94d;--blue:#5aa5ea;--sh:0 1px 3px #0006}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{display:flex;align-items:center;gap:14px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--card);position:sticky;top:0;z-index:5;overflow-x:auto}
+.logo{font-size:20px;color:var(--acc);white-space:nowrap}
+nav{display:flex;gap:4px}
+nav button{background:none;border:0;color:var(--mut);font:inherit;padding:6px 12px;border-radius:8px;cursor:pointer;white-space:nowrap}
+nav button.on,nav button:hover{background:var(--bg);color:var(--fg)}
+main{max-width:900px;margin:0 auto;padding:18px 16px 80px}
+h1,h2,h3{margin:.2em 0 .5em}
+.mut{color:var(--mut)} small{color:var(--mut)}
+.btn{background:var(--acc);color:#fff;border:0;border-radius:10px;padding:9px 16px;font:inherit;font-weight:600;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.btn.sm{padding:4px 10px;font-size:14px}
+.btn:hover{filter:brightness(1.07)}.btn:disabled{opacity:.5;cursor:default}
+input,select,textarea{font:inherit;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:7px 10px;max-width:100%}
+textarea{width:100%;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:10px 0}
+.row label{display:flex;gap:6px;align-items:center}
+.hero{text-align:center;padding:40px 10px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:14px}
+.tile{display:flex;flex-direction:column;gap:2px;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;color:var(--fg);font:inherit;box-shadow:var(--sh)}
+.tile:hover{border-color:var(--acc)}
+.tile .ic{font-size:26px}.tile b{font-size:17px}.tile em{font-style:normal;color:var(--acc);font-weight:600;font-size:14px}
+.sbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.cnts b{margin-left:12px;font-size:18px}.cb{color:var(--blue)}.cr{color:var(--bad)}.cg{color:var(--ok)}
+.flash{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 22px;box-shadow:var(--sh);text-align:center;min-height:200px}
+.flash hr{border:0;border-top:1px dashed var(--line);margin:18px 0}
+.big{font-size:30px;font-weight:650;line-height:1.25}
+.chip{display:inline-block;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--mut);border:1px solid var(--line);border-radius:20px;padding:0 9px;margin-top:8px}
+.hint{color:var(--warn);margin-top:8px}.alt{color:var(--mut);margin-top:4px}
+.bsp{margin-top:12px;font-size:18px}.bsp small{display:block;font-size:15px}.bsp b{color:var(--acc)}
+.sep{color:var(--mut)}
+.actions{display:flex;gap:8px;margin-top:14px;justify-content:center;flex-wrap:wrap}
+.rate{flex:1;min-width:76px;max-width:170px;background:var(--card);border:2px solid var(--line);border-radius:12px;padding:8px 6px;font:inherit;font-weight:600;cursor:pointer;color:var(--fg)}
+.rate small{display:block;font-weight:400}
+.r1{border-color:var(--bad)}.r2{border-color:var(--warn)}.r3{border-color:var(--ok)}.r4{border-color:var(--blue)}
+.rate.sug{background:var(--fg);color:var(--bg)}.rate.sug small{color:var(--bg)}
+.show{width:100%;max-width:420px;padding:13px}
+.tools{display:flex;gap:6px;justify-content:center;margin-top:12px;flex-wrap:wrap}
+.tools button{background:none;border:0;color:var(--mut);cursor:pointer;font:inherit;font-size:14px}.tools button:hover{color:var(--fg)}
+.ti{font-size:22px;text-align:center;width:100%;max-width:420px;margin-top:16px}
+.chars{display:flex;gap:4px;justify-content:center;margin-top:8px}.chars button{border:1px solid var(--line);background:var(--card);border-radius:6px;padding:2px 9px;cursor:pointer;color:var(--fg);font:inherit}
+.res{margin:10px 0;padding:10px;border-radius:10px;text-align:left;display:inline-block}
+.res.ok,.res.accent{background:#2e8b5722}.res.noart,.res.art,.res.near{background:#d98a2b22}.res.bad{background:#c0392b22}
+u.x{color:var(--bad);text-decoration:none;background:#c0392b25}u.m{color:var(--ok);text-decoration:none;background:#2e8b5725}
+.cloze{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;line-height:2.4;font-size:18px}
+.gw{display:inline-block;white-space:nowrap}
+input.gap{font-size:17px;padding:1px 6px;text-align:center;border:0;border-bottom:2px solid var(--mut);background:transparent;border-radius:0}
+input.gap.ok{border-color:var(--ok);background:#2e8b5720}input.gap.acc{border-color:var(--warn);background:#d98a2b20}input.gap.bad{border-color:var(--bad);background:#c0392b20}
+.gh{margin:0 6px 0 3px;font-size:12px}.sol{color:var(--ok);font-size:13px;margin-left:3px}
+.bank{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}.bank span{background:var(--bg);border:1px solid var(--line);border-radius:20px;padding:1px 12px}
+.opts{display:grid;gap:8px;margin-top:16px}
+.opt{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:11px;font:inherit;font-size:18px;cursor:pointer;color:var(--fg)}
+.opt.ok{border-color:var(--ok);background:#2e8b5722}.opt.bad{border-color:var(--bad);background:#c0392b22}
+table{width:100%;border-collapse:collapse;font-size:15px}th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+td.es{cursor:pointer;font-weight:600}td.es:hover{color:var(--acc)}
+.box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0}
+.bars{display:flex;align-items:flex-end;gap:2px;height:90px}.bars i{flex:1;background:var(--acc);min-height:1px;border-radius:2px 2px 0 0}
+.heat{display:grid;grid-template-rows:repeat(7,14px);grid-auto-flow:column;grid-auto-columns:14px;gap:3px}.heat i{background:var(--line);border-radius:3px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:600px){.grid2{grid-template-columns:1fr}.big{font-size:26px}}
+dialog{border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--fg);max-width:560px;width:92%;padding:18px}
+dialog::backdrop{background:#0008}
+.edit{display:grid;gap:8px}.edit label{display:grid;gap:2px;font-size:13px;color:var(--mut)}.edit input,.edit select{width:100%}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:9px 18px;border-radius:30px;opacity:0;transition:.25s;pointer-events:none;z-index:20;max-width:90%;text-align:center}
+#toast.on{opacity:1}
+.warn{color:var(--warn)}.okc{color:var(--ok)}.badc{color:var(--bad)}
+/* neue Bereiche */
+.guide{margin:6px 0 0;padding-left:20px}.guide li{margin:5px 0}
+details.box>summary{cursor:pointer;font-weight:650;font-size:17px}
+details.box[open]>summary{margin-bottom:10px}
+details.inner{margin:8px 0}details.inner>summary{cursor:pointer;color:var(--blue)}
+.banner{border-radius:10px;padding:10px 14px;margin:10px 0;border:1px solid var(--line);background:var(--card)}
+.banner.ok{border-color:var(--ok);background:#2e8b5718}.banner.warn{border-color:var(--warn);background:#d98a2b22}.banner.stop{border-color:var(--bad);background:#c0392b18}.banner.wait{border-color:var(--blue);background:#2a6fb018}
+.meter{height:8px;border-radius:6px;background:var(--line);overflow:hidden;margin-top:6px}.meter i{display:block;height:100%;background:var(--ok)}
+.banner.warn .meter i{background:var(--warn)}.banner.stop .meter i{background:var(--bad)}
+.badge{font-size:12px;border-radius:20px;padding:1px 10px;border:1px solid var(--line);color:var(--mut)}.badge.s{border-color:var(--warn);color:var(--warn)}.badge.i{border-color:var(--ok);color:var(--ok)}
+.pkg.next{border-color:var(--acc);border-width:2px}
+.tabs{display:flex;gap:6px;margin:10px 0}.tabs button{flex:1;padding:9px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--fg);font:inherit;font-weight:600;cursor:pointer}.tabs button.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+#drop{border:2px dashed var(--line);border-radius:14px;padding:22px;text-align:center;color:var(--mut);cursor:pointer}#drop.over{border-color:var(--acc);color:var(--fg)}
+.thumbs{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.thumbs div{position:relative}.thumbs img{height:64px;border-radius:6px;border:1px solid var(--line);display:block}.thumbs b{position:absolute;left:3px;top:3px;background:var(--acc);color:#fff;font-size:11px;border-radius:4px;padding:0 5px}.thumbs button{position:absolute;right:2px;top:2px;border:0;background:#000a;color:#fff;border-radius:50%;width:18px;height:18px;cursor:pointer;line-height:1;font-size:12px;padding:0}
+.sheets{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin:8px 0}.sheets img{width:100%;border:1px solid var(--line);border-radius:6px;display:block}
+progress{width:100%}
+</style>
+</head>
+<body>
+<header><b class="logo">¡Español Learn!</b><nav id="nav"></nav></header>
+<main id="view"></main>
+<div id="toast"></div>
+<dialog id="dlg"></dialog>
+<script>
+'use strict';
+/* ───────── Grundlagen ───────── */
+const KEY='esl_trainer_v1',MIN=6e4,DAY=864e5;
+const DEF={newPerDay:20,revPerDay:200,steps:[1,10],relSteps:[10],grad:1,easyIvl:4,ease:2.5,easyBonus:1.3,hardMul:1.2,leech:8,bury:true,dirs:'both',strict:false,needArt:false,autoSpeak:false,theme:'auto',learnAhead:20};
+const DEFPK={preset:'claude',edge:1568,maxmb:4.5,permsg:20,cols:2,top:0,bot:0,gap:10,q:88,num:true,langs:'spa+deu',maxch:30000};
+const TYPES=['nomen','verb','adjektiv','adverb','praeposition','konjunktion','pronomen','ausdruck','satz','sonstiges'];
+const PM={cloze:'Lückentexte',sent:'Satzlücken',quiz:'Quiz',listen:'Diktat'};
+const MODENAME={card:'Karteikarten',typing:'Tippen'};
+const $=(s,e=document)=>e.querySelector(s),$$=(s,e=document)=>[...e.querySelectorAll(s)];
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const uid=()=>Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-4);
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const norm=s=>String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/ß/g,'ss').replace(/[¿¡?!.,;:"“”'’()]/g,'').replace(/\s+/g,' ').trim();
+const ART=/^(el|la|los|las|un|una|unos|unas|der|die|das|ein|eine|el\/la)\s+/i;
+const stripArt=s=>String(s).replace(ART,'');
+const keyOf=s=>norm(stripArt(String(s).replace(/\(.*?\)/g,'')).replace(/\/[a-zñ-]{1,4}$/i,''));
+const splitS=s=>String(s||'').split(/\s*;\s*/).map(x=>x.trim()).filter(Boolean);
+const splitT=s=>String(s||'').split(/\s*,\s*/).map(x=>x.trim()).filter(Boolean);
+const dk=t=>{const d=new Date(t-144e5);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+const dayStart=t=>{const d=new Date((t==null?Date.now():t)-144e5);d.setHours(4,0,0,0);return d.getTime()};
+const nextDay=()=>dayStart(dayStart()+26*36e5);
+const dueIn=d=>dayStart(dayStart()+d*DAY+2*36e5);
+const hash=s=>{let h=5381;for(let i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))|0;return(h>>>0).toString(36)};
+let db;
+const stFresh=ease=>({q:0,step:0,due:0,ivl:0,ef:ease,reps:0,lapses:0,bury:0});
+const newSt=()=>stFresh(db.set.ease);
+/* Datenbank laden/normalisieren (auch für alte Backups und Zwischenstände) */
+function normalize(d){d=d&&typeof d==='object'?d:{};
+ d.cards=d.cards||{};d.texts=d.texts||{};d.set={...DEF,...(d.set||{})};d.daily=d.daily||{};d.hist=d.hist||{};d.decks=d.decks&&d.decks.length?d.decks:['Standard'];d.cur=d.cur||'*';d.profile=d.profile||'';d.lastExport=d.lastExport||0;
+ d.prompt={level:'A2',deck:'',interests:'',useList:true,...(d.prompt||{})};
+ d.pack={win:5,budget:10,warn:80,pause:3,notify:false,log:[],blockUntil:0,jobs:{},...(d.pack||{}),cfg:{...DEFPK,...((d.pack||{}).cfg||{})}};
+ const ease=d.set.ease;
+ for(const c of Object.values(d.cards)){c.de=c.de||[];c.alt=c.alt||[];c.tags=c.tags||[];c.s=c.s||{};c.t=c.t||{};
+  for(const m of ['s','t'])for(const k of ['f','r'])c[m][k]=c[m][k]||stFresh(ease);
+  if(c.susp===undefined)c.susp=!!(c.s.f.susp||c.s.r.susp);
+  if(Array.isArray(c.p))c.p={misc:c.p};c.p=c.p||{};c.created=c.created||Date.now()}
+ for(const k of Object.keys(d.daily)){const x=d.daily[k];if(x&&x.n!==undefined&&!x.card)d.daily[k]={card:{n:x.n||0,r:x.r||0,x:x.x||0}}}
+ return d}
+function load(){let r=null;try{r=JSON.parse(localStorage.getItem(KEY))}catch(e){}db=normalize(r);db.ver=2}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){toast('Speichern fehlgeschlagen – bitte Zwischenstand exportieren')}}
+function toast(m){const t=$('#toast');if(!t)return;t.textContent=m;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('on'),2800)}
+/* Tageszähler pro Lernmodus */
+const day=(m,w)=>{const k=dk(Date.now());const D=db.daily[k]||(w?(db.daily[k]={}):{});return D[m]||(w?(D[m]={n:0,r:0,x:0}):{n:0,r:0,x:0})};
+const dayTotal=()=>{const D=db.daily[dk(Date.now())]||{};return Object.values(D).reduce((s,x)=>s+(x.n||0)+(x.r||0),0)};
+const mkSt=()=>({f:newSt(),r:newSt()});
+function mkCard(o){const c={id:uid(),deck:'Standard',es:'',de:[],alt:[],typ:'sonstiges',hint:'',bsp:'',bspde:'',bsp2:'',bsp2de:'',tags:[],mark:false,susp:false,p:{},created:Date.now(),...o};c.s=c.s||mkSt();c.t=c.t||mkSt();return c}
+const ensureDeck=d=>{if(!db.decks.includes(d))db.decks.push(d)};
+const cardIdx=()=>{const m={};for(const c of Object.values(db.cards)){const k=keyOf(c.es);m[k]=m[k]||c;for(const a of c.alt){const k2=keyOf(a);m[k2]=m[k2]||c}}return m};
+const bspHTML=s=>esc(s).replace(/\{\{(.+?)\}\}/g,(m,x)=>'<b>'+x.split('|')[0]+'</b>');
+const plain=s=>String(s).replace(/\{\{(.+?)\}\}/g,(m,x)=>x.split('|')[0]);
+function parseGaps(s){const o=[];let last=0,m;const re=/\{\{(.+?)\}\}/g;while((m=re.exec(s))){if(m.index>last)o.push({t:s.slice(last,m.index)});const p=m[1].split('|');o.push({g:1,a:p[0].trim(),l:(p[1]||p[0]).trim()});last=re.lastIndex}if(last<s.length)o.push({t:s.slice(last)});return o}
+function applyTheme(){document.documentElement.dataset.theme=db.set.theme==='auto'?(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'):db.set.theme}
+/* ───────── Edit-Distanz / Diff ───────── */
+function levM(a,b){const m=a.length,n=b.length,d=Array.from({length:m+1},(_,i)=>{const r=new Array(n+1).fill(0);r[0]=i;return r});for(let j=1;j<=n;j++)d[0][j]=j;for(let i=1;i<=m;i++)for(let j=1;j<=n;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));return d}
+const levD=(a,b)=>{const d=levM(a,b);return d[a.length][b.length]};
+function diffHTML(a,b){const al=a.toLowerCase(),bl=b.toLowerCase(),d=levM(al,bl);let i=a.length,j=b.length;const U=[],T=[];
+ while(i>0||j>0){if(i>0&&j>0&&d[i][j]===d[i-1][j-1]+(al[i-1]===bl[j-1]?0:1)){const s=al[i-1]===bl[j-1];U.push(s?esc(a[i-1]):'<u class=x>'+esc(a[i-1])+'</u>');T.push(s?esc(b[j-1]):'<u class=m>'+esc(b[j-1])+'</u>');i--;j--}
+  else if(i>0&&d[i][j]===d[i-1][j]+1){U.push('<u class=x>'+esc(a[i-1])+'</u>');i--}else{T.push('<u class=m>'+esc(b[j-1])+'</u>');j--}}
+ return{u:U.reverse().join(''),t:T.reverse().join('')}}
+/* ───────── Spaced Repetition (SM-2, Anki-ähnlich) ───────── */
+function sched(st,r){
+ const S=db.set,n={...st},now=Date.now();n.reps++;
+ if(n.q===2){const i=n.ivl,h=Math.max(i+1,Math.round(i*S.hardMul)),g=Math.max(h+1,Math.round(i*n.ef)),e=Math.max(g+1,Math.round(i*n.ef*S.easyBonus));
+  if(r===1){n.lapses++;n.ef=Math.max(1.3,n.ef-.2);n.ivl=1;if(S.relSteps.length){n.q=3;n.step=0;n.due=now+S.relSteps[0]*MIN}else n.due=dueIn(1)}
+  else{n.ivl=Math.min(36500,[0,0,h,g,e][r]);if(r===2)n.ef=Math.max(1.3,n.ef-.15);if(r===4)n.ef+=.15;n.due=dueIn(n.ivl)}
+  return n}
+ const steps=n.q===3?S.relSteps:S.steps;if(n.q===0){n.q=1;n.step=0}
+ const grad=easy=>{const was=n.q===3;n.q=2;n.step=0;n.ivl=was?Math.max(1,n.ivl):(easy?S.easyIvl:S.grad);n.due=dueIn(n.ivl)};
+ const L=steps.length;
+ if(!L)grad(r===4);
+ else if(r===1){n.step=0;n.due=now+steps[0]*MIN}
+ else if(r===2){const m=n.step===0?(L>1?(steps[0]+steps[1])/2:steps[0]*1.5):steps[Math.min(n.step,L-1)];n.due=now+m*MIN}
+ else if(r===3){n.step++;if(n.step>=L)grad(false);else n.due=now+steps[n.step]*MIN}
+ else grad(true);
+ return n}
+function ivlLabel(n){if(n.q!==2){const m=Math.max(0,Math.round((n.due-Date.now())/MIN));return m<1?'<1m':m<60?m+'m':Math.round(m/60)+'h'}const d=n.ivl;return d<30?d+'d':d<365?(d/30).toFixed(1).replace('.0','')+'mo':(d/365).toFixed(1).replace('.0','')+'y'}
+const dirs=()=>db.set.dirs==='both'?['f','r']:[db.set.dirs];
+/* Jeder Lernmodus (card / typing) hat seinen EIGENEN Lernstand pro Karte und Richtung */
+const stOf=(c,m,d)=>c[m==='card'?'s':'t'][d];
+function allItems(deck,m){const o=[],D=dirs();for(const c of Object.values(db.cards)){if(c.susp||(deck!=='*'&&c.deck!==deck))continue;for(const d of D)o.push({c,d,m})}return o}
+function counts(deck,m){const now=Date.now(),nd=nextDay(),D=day(m),S=db.set,lrn=[],rev=[],nw=[];
+ for(const it of allItems(deck,m)){const s=stOf(it.c,m,it.d);if(s.bury>now)continue;
+  if(s.q===0)nw.push(it);else if(s.q===2){if(s.due<nd)rev.push(it)}else if(s.due<=now+S.learnAhead*MIN)lrn.push(it)}
+ const st=it=>stOf(it.c,m,it.d);
+ nw.sort((a,b)=>a.c.created-b.c.created);lrn.sort((a,b)=>st(a).due-st(b).due);
+ return{lrn,rev:shuffle(rev).slice(0,Math.max(0,S.revPerDay-D.r)),nw:nw.slice(0,Math.max(0,S.newPerDay+(D.x||0)-D.n))}}
+function pickNext(deck,m){const C=counts(deck,m);
+ if(C.lrn.length&&stOf(C.lrn[0].c,m,C.lrn[0].d).due<=Date.now())return C.lrn[0];
+ const r=C.rev.length,n=C.nw.length;if(r+n)return Math.random()*(r+n)<r?C.rev[0]:C.nw[0];
+ return C.lrn[0]||null}
+/* Übungsmodi ohne Wiederholungsplan: eigener Zähler pro Modus; ungeübte Wörter kommen zuerst */
+const tries=(c,m)=>{const a=(c.p&&c.p[m])||[0,0];return a[0]+a[1]};
+function bump(c,ok,m){c.p=c.p||{};const a=c.p[m]=c.p[m]||[0,0];a[ok?0:1]++}
+function pickPractice(list,n,m){return shuffle(list).map(x=>[x,tries(x.c||x,m)]).sort((a,b)=>a[1]-b[1]).slice(0,n).map(x=>x[0])}
+const curCards=()=>Object.values(db.cards).filter(c=>db.cur==='*'||c.deck===db.cur);
+/* ───────── Router ───────── */
+let route='home',ses=null,cz=null,ss=null,qz=null,ls=null,pe=null,tickT=null;
+const view=(h,keep)=>{$('#view').innerHTML=h;if(!keep)window.scrollTo(0,0)};
+function go(r){route=r;render();window.scrollTo(0,0)}
+function home(){ses=null;go('home')}
+function nav(){const N=[['home','Start'],['new','Neue Vokabeln'],['browse','Karten'],['stats','Statistik'],['data','Daten'],['settings','Einstellungen']];
+ $('#nav').innerHTML=N.map(([r,t])=>`<button class="${route===r?'on':''}" onclick="${r==='home'?'home()':`go('${r}')`}">${t}</button>`).join('')}
+function render(){clearInterval(tickT);tickT=null;document.title='Español Learn';nav();
+ ({home:pHome,study:renderStudy,cloze:pCloze,text:renderText,sent:renderSent,quiz:renderQuiz,listen:renderListen,end:renderEnd,browse:pBrowse,new:pNew,data:pData,stats:pStats,settings:pSettings}[route]||pHome)()}
+/* ───────── Start ───────── */
+function pHome(){const cards=Object.values(db.cards);
+ if(!cards.length){view(`<div class=hero><h1>¡Hola! 👋</h1><p class=mut>Noch keine Vokabeln. Wandle Übersetzer-Screenshots mit der KI in Vokabeln um (Anleitung unter „Neue Vokabeln“), importiere eine TXT-Datei, lies einen Zwischenstand ein – oder probiere es mit Beispieldaten.</p><div class=row style="justify-content:center"><button class=btn onclick="go('new')">Neue Vokabeln erzeugen</button><button class="btn ghost" onclick="go('data')">Zwischenstand einlesen</button><button class="btn ghost" onclick="loadSample()">Beispieldaten laden</button></div></div>`);return}
+ const Cc=counts(db.cur,'card'),Ct=counts(db.cur,'typing'),decks=db.decks.filter(d=>cards.some(c=>c.deck===d)),pool=curCards(),
+  nt=Object.values(db.texts).filter(t=>db.cur==='*'||t.deck===db.cur).length,fresh=m=>pool.filter(c=>tries(c,m)===0).length;
+ const tile=(ic,t,s,e,a)=>`<button class=tile onclick="${a}"><span class=ic>${ic}</span><b>${t}</b><small>${s}</small><em>${e}</em></button>`;
+ const h=db.hist,streak=(()=>{let n=0,t=Date.now();if(!(h[dk(t)]||{}).n)t-=DAY;while((h[dk(t)]||{}).n){n++;t-=DAY}return n})();
+ const age=db.lastExport?Math.floor((Date.now()-db.lastExport)/DAY):null;
+ view(`<div class=row><select onchange="db.cur=this.value;save();render()"><option value="*">Alle Decks</option>${decks.map(d=>`<option ${db.cur===d?'selected':''}>${esc(d)}</option>`).join('')}</select>
+ <select onchange="db.set.dirs=this.value;save();render()">${[['f','Spanisch → Deutsch'],['r','Deutsch → Spanisch'],['both','Beide Richtungen']].map(([v,t])=>`<option value=${v} ${db.set.dirs===v?'selected':''}>${t}</option>`).join('')}</select>
+ <span class=mut>heute ${dayTotal()} Wiederholungen${streak?` · 🔥 ${streak} Tage`:''}</span></div>
+ <div class=tiles>
+ ${tile('🗂️','Karteikarten','Anki-Stil mit Wiederholungsplan',`${Cc.nw.length} neu · ${Cc.lrn.length} lernt · ${Cc.rev.length} fällig`,"startStudy('card')")}
+ ${tile('⌨️','Tippen (Schreibweise)','Eigener Wiederholungsplan, unabhängig von den Karteikarten',`${Ct.nw.length} neu · ${Ct.lrn.length} lernt · ${Ct.rev.length} fällig`,"startStudy('typing')")}
+ ${tile('📖','Lückentexte','Vokabeln im Kontext',`${nt} Texte · ${fresh('cloze')} Wörter noch ungeübt`,"go('cloze')")}
+ ${tile('✏️','Satzlücken','10 Beispielsätze mit Lücke',`${fresh('sent')} Wörter noch ungeübt`,"startSent()")}
+ ${tile('🎯','Quiz','Multiple Choice, 10 Fragen',`${fresh('quiz')} Wörter noch ungeübt`,"startQuiz()")}
+ ${tile('🎧','Hören & Schreiben','Diktat mit Sprachausgabe',`${fresh('listen')} Wörter noch ungeübt`,"startListen()")}
+ </div><p class=mut style="margin-top:18px">Jeder Übungsmodus führt seinen <b>eigenen Fortschritt</b>: Was du in den Karteikarten lernst, gilt in Tippen, Lückentexten, Satzlücken, Quiz und Diktat weiterhin als „ungeübt“. Freie Übungsmodi zeigen zuerst Wörter, die du in genau diesem Modus noch nicht geübt hast.</p>
+ ${age===null||age>=7?`<div class=banner warn>💾 ${age===null?'Du hast noch nie einen Zwischenstand exportiert.':`Dein letzter Zwischenstand ist ${age} Tage alt.`} <a href="#" onclick="go('data');return false">Jetzt sichern</a> – deine Daten liegen nur in diesem Browser.</div>`:''}`)}
+const SAMPLE=`#ESLERN v1
+#DECK: Beispiel
+===KARTE===
+ES: la casa
+DE: das Haus ; das Zuhause
+TYP: nomen
+BSP: Vivimos en una {{casa}} pequeña.
+BSP_DE: Wir wohnen in einem kleinen Haus.
+TAGS: wohnen
+===KARTE===
+ES: vivir
+DE: leben ; wohnen
+TYP: verb
+HINWEIS: regelmäßig auf -ir: vivo, vives, vive
+BSP: Yo {{vivo|vivir}} en Madrid.
+BSP_DE: Ich wohne in Madrid.
+TAGS: wohnen
+===KARTE===
+ES: ir
+DE: gehen ; fahren
+TYP: verb
+HINWEIS: unregelmäßig: voy, vas, va / Indefinido: fui, fuiste, fue
+BSP: Ayer {{fui|ir}} al cine.
+BSP_DE: Gestern ging ich ins Kino.
+TAGS: bewegung
+===KARTE===
+ES: comer
+DE: essen
+TYP: verb
+BSP: Siempre {{comemos|comer}} juntos los domingos.
+BSP_DE: Wir essen sonntags immer zusammen.
+TAGS: essen
+===KARTE===
+ES: pedir
+DE: bestellen ; bitten
+TYP: verb
+HINWEIS: e→i: pido, pides, pide
+BSP: Voy a {{pedir}} una ensalada.
+BSP_DE: Ich werde einen Salat bestellen.
+TAGS: essen
+===KARTE===
+ES: el restaurante
+DE: das Restaurant
+TYP: nomen
+BSP: Este {{restaurante}} es muy famoso.
+BSP_DE: Dieses Restaurant ist sehr berühmt.
+TAGS: essen
+===KARTE===
+ES: la cuenta
+DE: die Rechnung
+TYP: nomen
+BSP: La {{cuenta}}, por favor.
+BSP_DE: Die Rechnung, bitte.
+TAGS: essen
+===KARTE===
+ES: delicioso/a
+DE: köstlich ; lecker
+TYP: adjektiv
+BSP: La sopa está {{deliciosa|delicioso/a}}.
+BSP_DE: Die Suppe ist köstlich.
+TAGS: essen
+===TEXT===
+TITEL: Im Restaurant
+NIVEAU: A2
+ES: Ayer {{fui|ir}} a un {{restaurante}} con mi familia. // Yo {{pedí|pedir}} una paella y mi madre {{comió|comer}} pescado. // Todo estaba {{delicioso}}. Al final, mi padre {{pidió|pedir}} la {{cuenta}}.
+DE: Gestern ging ich mit meiner Familie in ein Restaurant. // Ich bestellte eine Paella und meine Mutter aß Fisch. // Alles war köstlich. Am Ende verlangte mein Vater die Rechnung.`;
+function loadSample(){applyImport(parseImport(SAMPLE,'Beispiel'),'skip');toast('Beispieldaten geladen');go('home')}
+/* ───────── Karteikarten & Tippen ───────── */
+const typChip=c=>c.typ&&c.typ!=='sonstiges'?`<div><span class=chip>${esc(c.typ)}</span></div>`:'';
+const mean=c=>c.de.map(esc).join(' <span class=sep>·</span> ');
+const spk=()=>`<button class="btn ghost sm" onclick="speak(ses.it.c.es)" title="Anhören (p)">🔊</button>`;
+function front(it){const c=it.c;return it.d==='f'?`<div class=big lang=es>${esc(c.es)} ${spk()}</div>${typChip(c)}`:`<div class=big>${mean(c)}</div>${typChip(c)}`}
+function back(it){const c=it.c;let h=it.d==='f'?`<div class=big>${mean(c)}</div>`:`<div class=big lang=es>${esc(c.es)} ${spk()}</div>`;
+ if(it.d==='r'&&c.alt.length)h+=`<div class=alt>auch: ${c.alt.map(esc).join(', ')}</div>`;
+ if(c.hint)h+=`<div class=hint>💡 ${esc(c.hint)}</div>`;
+ for(const [a,b] of [[c.bsp,c.bspde],[c.bsp2,c.bsp2de]])if(a)h+=`<div class=bsp>${bspHTML(a)}<small>${esc(b)}</small></div>`;
+ return h}
+function startStudy(mode){ses={mode,deck:db.cur,undo:[],done:0};route='study';nextItem()}
+function nextItem(){ses.it=pickNext(ses.deck,ses.mode);ses.shown=false;ses.res=null;render();if(ses.it&&ses.it.d==='f'&&db.set.autoSpeak)speak(ses.it.c.es)}
+function reveal(){ses.shown=true;render();if(ses.it.d==='r'&&db.set.autoSpeak)speak(ses.it.c.es)}
+function renderStudy(){
+ if(!ses){home();return}
+ const it=ses.it,C=counts(ses.deck,ses.mode),typ=ses.mode==='typing';
+ let h=`<div class=sbar><button class="btn ghost sm" onclick="home()">← Beenden</button><b>${MODENAME[ses.mode]}</b><div class=cnts title="Neu · Lernen · Wiederholen"><b class=cb>${C.nw.length}</b><b class=cr>${C.lrn.length}</b><b class=cg>${C.rev.length}</b></div></div>`;
+ if(!it){h+=`<div class=hero><h2>🎉 Fertig für heute!</h2><p class=mut>${ses.done} Karten in dieser Runde.</p><div class=row style="justify-content:center"><button class=btn onclick="moreNew()">+10 neue Karten</button><button class="btn ghost" onclick="home()">Zur Startseite</button>${ses.undo.length?'<button class="btn ghost" onclick="undo()">↶ Rückgängig</button>':''}</div></div>`;view(h,true);return}
+ h+=`<div class=flash>${front(it)}`;
+ if(typ&&!ses.shown){const es=it.d==='r';h+=`<div><input class=ti id=ti autocomplete=off autocapitalize=off spellcheck=false placeholder="${es?'Spanisch eintippen …':'Deutsch eintippen …'}"></div><div class=chars>${(es?'áéíóúüñ¿¡':'äöüß').split('').map(ch=>`<button type=button onmousedown="event.preventDefault()" onclick="ins('${ch}')">${ch}</button>`).join('')}</div>`}
+ if(ses.shown){h+=`<hr>`;if(typ&&ses.res)h+=resHTML(ses.res);h+=back(it)}
+ h+=`</div><div class=actions>`;
+ if(!ses.shown)h+=typ?`<button class="btn show" onclick="doCheck()">Prüfen (Enter)</button>`:`<button class="btn show" onclick="reveal()">Antwort zeigen (Leertaste)</button>`;
+ else{const sug=ses.res?ses.res.sug:0,st=stOf(it.c,ses.mode,it.d);h+=[1,2,3,4].map(r=>{const n=sched(st,r);return `<button class="rate r${r}${sug===r?' sug':''}" onclick="rate(${r})"><small>${ivlLabel(n)}</small>${['Nochmal','Schwer','Gut','Leicht'][r-1]}</button>`}).join('')}
+ h+=`</div><div class=tools><button onclick="undo()">↶ Rückgängig (z)</button><button onclick="editCard('${it.c.id}',()=>render())">✎ Bearbeiten (e)</button><button onclick="susp()">⏸ Pausieren (s)</button><button onclick="bury()">⤵ Bis morgen (b)</button><button onclick="mark()">${it.c.mark?'★':'☆'} Markieren (m)</button></div>`;
+ view(h,true);if(typ&&!ses.shown){const t=$('#ti');if(t)t.focus()}}
+function resHTML(r){const M={ok:'✔ Richtig',accent:'✔ Richtig – aber achte auf Akzente/Umlaute',noart:'Fast – der Artikel fehlt',art:'Fast – falscher Artikel',near:'Knapp daneben',bad:'✘ Nicht richtig'};
+ let h=`<div class="res ${r.r}"><b>${M[r.r]}</b>`;if(r.r!=='ok'){const d=diffHTML(r.val.trim(),r.best);h+=`<div>Deine Antwort: ${d.u}</div><div>Richtig: ${d.t}</div>`}return h+`</div>`}
+function ins(ch){const t=$('#ti');if(!t)return;const a=t.selectionStart,b=t.selectionEnd;t.value=t.value.slice(0,a)+ch+t.value.slice(b);t.focus();t.selectionStart=t.selectionEnd=a+1}
+function doCheck(){const t=$('#ti');if(!t||!t.value.trim())return;const it=ses.it;ses.res=checkTyped(it,t.value);ses.res.val=t.value;ses.shown=true;render();if(it.d==='r'&&db.set.autoSpeak)speak(it.c.es)}
+function checkTyped(it,v){
+ const c=it.c,es=it.d==='r';let T=es?[c.es,...c.alt]:[...c.de];
+ T=T.flatMap(t=>{const a=t.replace(/\(.*?\)/g,'').replace(/\s+/g,' ').trim();return a&&a!==t?[t,a]:[t]});
+ const low=s=>s.toLowerCase().replace(/\s+/g,' ').trim(),nv=norm(stripArt(v));
+ let best=T[0],bd=1e9;for(const t of T){const d=levD(nv,norm(stripArt(t)));if(d<bd){bd=d;best=t}}
+ let m=T.find(t=>low(t)===low(v));if(m)return{r:'ok',sug:3,best:m};
+ m=T.find(t=>norm(stripArt(t))===nv);
+ if(m){if(!es)return{r:'ok',sug:3,best:m};const th=ART.test(m),uh=ART.test(v.trim());
+  if(th&&!uh)return{r:'noart',sug:db.set.needArt?2:3,best:m};
+  if(th&&uh&&norm(m)!==norm(v))return{r:'art',sug:2,best:m};
+  return{r:'accent',sug:db.set.strict?2:3,best:m}}
+ const len=nv.length;if(len>3&&bd<=(len>8?2:1))return{r:'near',sug:2,best};
+ return{r:'bad',sug:1,best}}
+function rate(r){if(!ses||!ses.it||!ses.shown)return;applyRating(ses.it,r);ses.done++;nextItem()}
+function applyRating(it,r){const c=it.c,d=it.d,m=it.m,st=stOf(c,m,d),k=dk(Date.now());
+ ses.undo.push({id:c.id,s:JSON.stringify(c.s),t:JSON.stringify(c.t),susp:c.susp,tags:JSON.stringify(c.tags),k,m,d,day:JSON.stringify(db.daily[k]||null),h:JSON.stringify(db.hist[k]||null)});if(ses.undo.length>30)ses.undo.shift();
+ const first=st.q===0,wasRev=st.q===2,n=sched(st,r);c[m==='card'?'s':'t'][d]=n;
+ const D=day(m,1);if(first)D.n++;else if(wasRev)D.r++;
+ const H=db.hist[k]=db.hist[k]||{n:0,a:0};H.n++;if(r===1)H.a++;
+ if(r===1&&wasRev&&n.lapses>=db.set.leech){c.susp=true;if(!c.tags.includes('leech'))c.tags.push('leech');toast('Leech: Karte oft vergessen und pausiert – ergänze eine Merkhilfe!')}
+ if(db.set.bury&&db.set.dirs==='both')stOf(c,m,d==='f'?'r':'f').bury=nextDay();
+ save()}
+function undo(){if(!ses)return;const u=ses.undo.pop();if(!u){toast('Nichts rückgängig zu machen');return}const c=db.cards[u.id];if(!c)return;
+ c.s=JSON.parse(u.s);c.t=JSON.parse(u.t);c.susp=u.susp;c.tags=JSON.parse(u.tags);const D=JSON.parse(u.day),H=JSON.parse(u.h);if(D)db.daily[u.k]=D;else delete db.daily[u.k];if(H)db.hist[u.k]=H;else delete db.hist[u.k];
+ ses.done=Math.max(0,ses.done-1);ses.it={c,d:u.d,m:u.m};ses.shown=false;ses.res=null;save();render()}
+function susp(){const c=ses.it&&ses.it.c;if(!c)return;c.susp=true;save();toast('Karte pausiert (im Karten-Browser wieder aktivierbar)');nextItem()}
+function bury(){const c=ses.it&&ses.it.c;if(!c)return;stOf(c,ses.mode,'f').bury=stOf(c,ses.mode,'r').bury=nextDay();save();toast('Karte bis morgen zurückgestellt');nextItem()}
+function mark(){const c=ses.it&&ses.it.c;if(!c)return;c.mark=!c.mark;save();render()}
+function moreNew(){day(ses.mode,1).x+=10;save();nextItem()}
+let _v=null;
+function speak(t){if(!('speechSynthesis' in window)){toast('Sprachausgabe wird vom Browser nicht unterstützt');return}
+ const u=new SpeechSynthesisUtterance(plain(t));const V=speechSynthesis.getVoices();_v=_v||V.find(v=>v.lang==='es-ES')||V.find(v=>v.lang.startsWith('es'));if(_v)u.voice=_v;u.lang=_v?_v.lang:'es-ES';u.rate=speak.rate||.95;speechSynthesis.cancel();speechSynthesis.speak(u)}
+/* ───────── Lückentexte ───────── */
+function gapOk(v,a){const x=v.trim().toLowerCase();if(x===a.toLowerCase())return'ok';if(norm(v)===norm(a))return db.set.strict?'acc':'ok';return'bad'}
+function pCloze(){const T=Object.values(db.texts).filter(t=>db.cur==='*'||t.deck===db.cur),idx=cardIdx();
+ const newW=t=>{const s=new Set(),a=new Set();for(const g of parseGaps(t.es).filter(x=>x.g)){const c=idx[keyOf(g.l)];if(c){a.add(c.id);if(tries(c,'cloze')===0)s.add(c.id)}}return[s.size,a.size]};
+ view(`<h2>Lückentexte</h2><div class=row><button class=btn onclick="startSent()">✏️ Satzlücken (10 Sätze)</button><span class=mut>Deck: ${db.cur==='*'?'alle':esc(db.cur)}</span></div>
+ ${T.length?T.map(t=>{const [n,a]=newW(t);return `<div class=box><div class=row style="margin:0"><b>${esc(t.title)}</b> <span class=chip>${esc(t.level||'')}</span><small>${esc(t.deck)}${t.best!=null?' · Bestwert '+t.best+' %':''} · ${n} von ${a} Wörtern hier noch ungeübt</small><span style="flex:1"></span><button class="btn sm" onclick="openText('${t.id}')">Üben</button><button class="btn ghost sm" onclick="delText('${t.id}')">🗑</button></div></div>`}).join(''):'<p class=mut>Keine Texte. Die KI erzeugt sie mit (===TEXT===-Blöcke); importiere sie unter „Neue Vokabeln“.</p>'}`)}
+function delText(id){if(confirm('Text löschen?')){delete db.texts[id];save();render()}}
+function openText(id){cz={t:db.texts[id],hints:true,bank:false,checked:false,tr:false};route='text';render()}
+function renderText(){const t=cz.t,idx=cardIdx();cz.gaps=[];let gi=0;
+ const paras=t.es.split(/\s*\/\/\s*/).map(p=>'<p>'+parseGaps(p).map(x=>{if(!x.g)return esc(x.t);const i=gi++;cz.gaps.push(x);const c=idx[keyOf(x.l)];
+  const hint=[c?c.de[0]:'',keyOf(x.l)!==keyOf(x.a)?'Grundform: '+x.l:''].filter(Boolean).join(' · ');
+  return `<span class=gw><input class=gap data-i=${i} size=${Math.max(3,x.a.length+1)} autocomplete=off autocapitalize=off spellcheck=false>${cz.hints&&hint?`<small class=gh>(${esc(hint)})</small>`:''}</span>`}).join('')+'</p>').join('');
+ view(`<div class=sbar><button class="btn ghost sm" onclick="go('cloze')">← Texte</button><b>${esc(t.title)}</b></div>
+ <div class=row><label><input type=checkbox ${cz.hints?'checked':''} onchange="cz.hints=this.checked;keepRender()"> Hinweise</label><label><input type=checkbox ${cz.bank?'checked':''} onchange="cz.bank=this.checked;keepRender()"> Wortbank</label></div>
+ ${cz.bank?`<div class=bank>${shuffle(cz.gaps.map(g=>g.a)).map(a=>`<span>${esc(a)}</span>`).join('')}</div>`:''}
+ <div class=cloze>${paras}</div>
+ <div class=row><button class=btn onclick="checkText()">Prüfen</button><button class="btn ghost" onclick="solveText()">Lösungen zeigen</button><button class="btn ghost" onclick="speak(cz.t.es.replace(/ \\/\\/ /g,'. '))">🔊 Text anhören</button>${t.de?`<button class="btn ghost" onclick="cz.tr=!cz.tr;$('#trl').style.display=cz.tr?'block':'none'">Übersetzung</button>`:''}</div>
+ <div id=trl class=box style="display:${cz.tr?'block':'none'}">${esc(t.de||'').replace(/ \/\/ /g,'<br><br>')}</div><div id=tres></div>`,true);
+ if(cz.vals)$$('input.gap').forEach((e,i)=>e.value=cz.vals[i]||'');const f=$('input.gap');if(f&&!cz.checked)f.focus()}
+function keepRender(){cz.vals=$$('input.gap').map(e=>e.value);renderText()}
+function checkText(){const idx=cardIdx();let ok=0,acc=0;
+ $$('input.gap').forEach((e,i)=>{const g=cz.gaps[i],r=gapOk(e.value,g.a);e.className='gap '+r;const c=idx[keyOf(g.l)];if(r==='ok'||r==='acc'){ok++;if(r==='acc')acc++;if(c)bump(c,true,'cloze')}else if(c)bump(c,false,'cloze')});
+ const tot=cz.gaps.length,pct=Math.round(ok/tot*100);cz.t.best=Math.max(cz.t.best||0,pct);save();cz.checked=true;
+ $('#tres').innerHTML=`<div class=box><b>${ok} von ${tot} richtig (${pct} %)</b>${acc?`<div class=warn>${acc}× Akzent fehlt</div>`:''}${ok<tot?'<div class=mut>Rot = falsch. „Lösungen zeigen“ verrät die richtigen Wörter.</div>':'<div class=okc>Perfekt! 🎉</div>'}</div>`}
+function solveText(){$$('input.gap').forEach((e,i)=>{const g=cz.gaps[i];if(gapOk(e.value,g.a)==='bad'&&!(e.nextElementSibling&&e.nextElementSibling.classList.contains('sol'))){const s=document.createElement('span');s.className='sol';s.textContent=g.a;e.after(s)}})}
+/* ───────── Satzlücken ───────── */
+function sentGap(c,s){if(!s)return null;if(/\{\{/.test(s))return parseGaps(s);
+ const stem=stripArt(c.es).replace(/\(.*?\)/g,'').replace(/\/[a-zñ-]{1,4}$/i,'').trim();if(!stem)return null;
+ const re=x=>new RegExp('(^|[^\\p{L}])('+x+')(?=$|[^\\p{L}])','iu'),q=stem.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+ let m=re(q).exec(s);if(!m&&stem.length>=4&&!stem.includes(' ')){const r=stem.replace(/(ar|er|ir|arse|erse|irse)$/,'');if(r.length>=3)m=new RegExp('(^|[^\\p{L}])('+r.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'[\\p{L}]*)(?=$|[^\\p{L}])','iu').exec(s)}
+ if(!m)return null;const st=m.index+m[1].length;return[{t:s.slice(0,st)},{g:1,a:m[2],l:c.es},{t:s.slice(st+m[2].length)}]}
+function startSent(){const pool=[];for(const c of curCards()){for(const [s,de] of [[c.bsp,c.bspde],[c.bsp2,c.bsp2de]]){const g=sentGap(c,s);if(g)pool.push({c,parts:g,de})}}
+ if(!pool.length){toast('Keine Beispielsätze vorhanden');return}
+ ss={q:pickPractice(pool,10,'sent'),i:0,ok:0,tot:0,checked:false};route='sent';render()}
+function renderSent(){const q=ss.q[ss.i];if(!q){pe={title:'Satzlücken',ok:ss.ok,tot:ss.tot,again:'startSent()'};go('end');return}
+ let gi=0;view(`<div class=sbar><button class="btn ghost sm" onclick="home()">← Beenden</button><b>${ss.i+1} / ${ss.q.length}</b></div>
+ <div class=flash><form onsubmit="sentSubmit();return false" class=cloze style="border:0;background:none;padding:0">${q.parts.map(x=>x.g?`<span class=gw><input class=gap data-i=${gi++} size=${Math.max(3,x.a.length+1)} autocomplete=off autocapitalize=off spellcheck=false><small class=gh>(${esc(q.c.de[0])}${keyOf(q.c.es)!==keyOf(x.a)?' · '+esc(stripArt(q.c.es)):''})</small></span>`:esc(x.t)).join('')}
+ <div class=mut style="font-size:16px;line-height:1.5;margin-top:10px">${esc(q.de||'')}</div><div class=row style="justify-content:center"><button class=btn type=submit id=sb>Prüfen</button></div></form><div id=sres></div></div>`,true);
+ ss.checked=false;const f=$('input.gap');if(f)f.focus()}
+function sentSubmit(){if(ss.checked){ss.i++;renderSent();return}const q=ss.q[ss.i];let all=true;
+ $$('input.gap').forEach(e=>{const g=q.parts.filter(p=>p.g)[+e.dataset.i],r=gapOk(e.value,g.a);e.className='gap '+r;e.readOnly=true;if(r==='bad'){all=false;const s=document.createElement('span');s.className='sol';s.textContent=g.a;e.after(s)}});
+ ss.tot++;if(all)ss.ok++;bump(q.c,all,'sent');save();ss.checked=true;$('#sb').textContent='Weiter';$('#sres').innerHTML=all?'<p class=okc>✔ Richtig</p>':'<p class=badc>✘ Nicht ganz – Lösung grün daneben</p>'}
+/* ───────── Quiz ───────── */
+function startQuiz(){const P=curCards();if(P.length<4){toast('Für das Quiz werden mindestens 4 Karten benötigt');return}
+ const all=Object.values(db.cards);qz={q:pickPractice(P,10,'quiz').map(c=>{const d=db.set.dirs==='both'?(Math.random()<.5?'f':'r'):db.set.dirs;
+  const same=shuffle(all.filter(x=>x.id!==c.id&&x.typ===c.typ)),oth=shuffle(all.filter(x=>x.id!==c.id&&x.typ!==c.typ)),dis=[...same,...oth].slice(0,3);
+  return{c,d,opts:shuffle([c,...dis]),ans:null}}),i:0,ok:0};route='quiz';render()}
+function renderQuiz(){const q=qz.q[qz.i];if(!q){pe={title:'Quiz',ok:qz.ok,tot:qz.q.length,again:'startQuiz()'};go('end');return}
+ const lab=c=>q.d==='f'?c.de[0]:c.es;
+ view(`<div class=sbar><button class="btn ghost sm" onclick="home()">← Beenden</button><b>${qz.i+1} / ${qz.q.length}</b></div><div class=flash>${q.d==='f'?`<div class=big>${esc(q.c.es)} <button class="btn ghost sm" onclick="speak(qz.q[qz.i].c.es)">🔊</button></div>`:`<div class=big>${esc(q.c.de[0])}</div>`}<div class=opts>${q.opts.map((o,i)=>`<button class="opt ${q.ans!=null?(o===q.c?'ok':(i===q.ans?'bad':'')):''}" ${q.ans!=null?'disabled':''} onclick="qPick(${i})">${i+1}. ${esc(lab(o))}</button>`).join('')}</div>${q.ans!=null?`<div class=actions><button class=btn onclick="qNext()">Weiter (Enter)</button></div>`:''}</div>`,true)}
+function qPick(i){const q=qz.q[qz.i];if(q.ans!=null)return;q.ans=i;const ok=q.opts[i]===q.c;if(ok)qz.ok++;bump(q.c,ok,'quiz');save();renderQuiz()}
+function qNext(){qz.i++;renderQuiz()}
+/* ───────── Hören & Schreiben ───────── */
+function startListen(){if(!('speechSynthesis' in window)){toast('Sprachausgabe wird von diesem Browser nicht unterstützt');return}
+ const P=curCards().filter(c=>c.es);if(!P.length)return;ls={q:pickPractice(P,10,'listen'),i:0,ok:0,done:false};route='listen';render()}
+function renderListen(){const c=ls.q[ls.i];if(!c){pe={title:'Diktat',ok:ls.ok,tot:ls.q.length,again:'startListen()'};go('end');return}
+ view(`<div class=sbar><button class="btn ghost sm" onclick="home()">← Beenden</button><b>${ls.i+1} / ${ls.q.length}</b></div><div class=flash><div class=big>🎧</div><div class=row style="justify-content:center"><button class=btn type=button onclick="speak.rate=.95;speak(ls.q[ls.i].es)">▶ Abspielen</button><button class="btn ghost" type=button onclick="speak.rate=.6;speak(ls.q[ls.i].es);speak.rate=.95">🐢 Langsam</button></div>
+ <form onsubmit="listenSubmit();return false"><input class=ti id=ti autocomplete=off autocapitalize=off spellcheck=false placeholder="Was hörst du? (Spanisch)"><div class=chars>${'áéíóúüñ¿¡'.split('').map(ch=>`<button type=button onmousedown="event.preventDefault()" onclick="ins('${ch}')">${ch}</button>`).join('')}</div><div class=row style="justify-content:center"><button class=btn id=sb type=submit>Prüfen</button></div></form><div id=sres></div></div>`,true);
+ ls.done=false;$('#ti').focus();setTimeout(()=>speak(c.es),250)}
+function listenSubmit(){if(ls.done){ls.i++;renderListen();return}const c=ls.q[ls.i],v=$('#ti').value;if(!v.trim())return;const r=checkTyped({c,d:'r'},v);const ok=r.r==='ok'||r.r==='accent'||r.r==='noart';
+ if(ok)ls.ok++;bump(c,ok,'listen');save();ls.done=true;$('#ti').readOnly=true;$('#sb').textContent='Weiter';
+ $('#sres').innerHTML=resHTML({...r,val:v})+`<div class=big style="font-size:22px">${esc(c.es)} <small>= ${esc(c.de.join(' · '))}</small></div>`}
+function renderEnd(){const p=pe;view(`<div class=hero><h2>${esc(p.title)} – geschafft!</h2><div class=big>${p.ok} / ${p.tot} richtig</div><p class=mut>${Math.round(p.ok/Math.max(1,p.tot)*100)} %</p><div class=row style="justify-content:center"><button class=btn onclick="${p.again}">Nochmal</button><button class="btn ghost" onclick="home()">Startseite</button></div></div>`)}
+/* ───────── Karten-Browser ───────── */
+let br={q:'',deck:'*',st:'all',sel:new Set(),list:[]};
+function pBrowse(){view(`<h2>Karten <small id=bn></small></h2><div class=row><input id=bq placeholder="Suchen …" value="${esc(br.q)}" oninput="br.q=this.value;brT()">
+ <select onchange="br.deck=this.value;brT()"><option value="*">alle Decks</option>${db.decks.map(d=>`<option ${br.deck===d?'selected':''}>${esc(d)}</option>`).join('')}</select>
+ <select onchange="br.st=this.value;brT()">${[['all','alle'],['new','neu (in einem Lernmodus)'],['learn','lernt'],['review','Wiederholung'],['susp','pausiert'],['mark','markiert'],['leech','Leech']].map(([v,t])=>`<option value=${v} ${br.st===v?'selected':''}>${t}</option>`).join('')}</select>
+ <button class=btn onclick="editCard(null,brT)">+ Karte</button><button class="btn ghost" onclick="showDupes()">Duplikate prüfen</button></div>
+ <div class=row><small>Auswahl:</small><button class="btn ghost sm" onclick="brBulk('susp')">pausieren</button><button class="btn ghost sm" onclick="brBulk('unsusp')">aktivieren</button><button class="btn ghost sm" onclick="brBulk('reset')">Lernstand zurücksetzen</button><button class="btn ghost sm" onclick="brBulk('deck')">Deck ändern</button><button class="btn ghost sm" onclick="brBulk('del')">löschen</button></div><div id=bt></div>`);brT()}
+function stLabel(s){if(s.q===0)return'neu';if(s.q!==2)return'lernt';const d=Math.round((s.due-Date.now())/DAY);return d<=0?'fällig':d+'d'}
+function brT(){const q=norm(br.q);let L=Object.values(db.cards).filter(c=>(br.deck==='*'||c.deck===br.deck)&&(!q||norm([c.es,c.de.join(' '),c.alt.join(' '),c.tags.join(' '),c.hint].join(' ')).includes(q)));
+ const f=br.st;if(f!=='all')L=L.filter(c=>{const S=[c.s.f,c.s.r,c.t.f,c.t.r];return f==='new'?S.some(s=>s.q===0)&&!c.susp:f==='learn'?S.some(s=>s.q===1||s.q===3):f==='review'?S.some(s=>s.q===2):f==='susp'?c.susp:f==='mark'?c.mark:c.tags.includes('leech')});
+ L.sort((a,b)=>b.created-a.created);br.list=L;$('#bn').textContent='('+L.length+')';
+ const prac=c=>Object.keys(PM).map(m=>{const a=(c.p||{})[m];return a&&a[0]+a[1]?`${PM[m].slice(0,3)} ${a[0]}✔${a[1]}✘`:''}).filter(Boolean).join(' · ');
+ $('#bt').innerHTML=`<table><tr><th><input type=checkbox onchange="brAll(this.checked)"></th><th>Spanisch</th><th>Deutsch</th><th>Typ</th><th>Deck</th><th>Stand je Modus</th></tr>${L.slice(0,300).map(c=>`<tr><td><input type=checkbox ${br.sel.has(c.id)?'checked':''} onchange="brSel('${c.id}',this.checked)"></td><td class=es onclick="editCard('${c.id}',brT)">${c.mark?'★ ':''}${c.susp?'⏸ ':''}${esc(c.es)}</td><td>${esc(c.de.join(' · '))}</td><td>${esc(c.typ)}</td><td>${esc(c.deck)}</td><td><small>Karten ${stLabel(c.s.f)}/${stLabel(c.s.r)} · Tippen ${stLabel(c.t.f)}/${stLabel(c.t.r)}${prac(c)?'<br>'+prac(c):''}</small></td></tr>`).join('')}</table>${L.length>300?'<p class=mut>Nur die ersten 300 werden angezeigt – bitte filtern.</p>':''}`}
+const brSel=(id,on)=>{on?br.sel.add(id):br.sel.delete(id)};
+function brAll(on){br.list.forEach(c=>on?br.sel.add(c.id):br.sel.delete(c.id));brT()}
+function brBulk(a){const ids=[...br.sel].filter(id=>db.cards[id]);if(!ids.length){toast('Nichts ausgewählt');return}
+ if(a==='del'){if(!confirm(ids.length+' Karte(n) löschen?'))return;ids.forEach(id=>delete db.cards[id])}
+ else if(a==='deck'){const d=prompt('Neuer Deck-Name:');if(!d)return;ensureDeck(d.trim());ids.forEach(id=>db.cards[id].deck=d.trim())}
+ else if(a==='reset'){if(!confirm('Lernstand von '+ids.length+' Karte(n) in ALLEN Modi zurücksetzen?'))return;ids.forEach(id=>{const c=db.cards[id];c.s=mkSt();c.t=mkSt();c.p={}})}
+ else ids.forEach(id=>{db.cards[id].susp=a==='susp'});
+ br.sel.clear();save();brT()}
+function dupeGroups(cards){const m={};for(const c of cards)for(const d of c.de){const k=keyOf(d);if(k.length>=3)(m[k]=m[k]||new Map()).set(c.id,c)}
+ const g=[],seen=new Set();for(const [k,mp] of Object.entries(m)){if(mp.size<2)continue;const cs=[...mp.values()],sig=cs.map(c=>c.id).sort().join();if(seen.has(sig))continue;if(new Set(cs.map(c=>keyOf(c.es))).size<2)continue;seen.add(sig);g.push([k,cs])}return g}
+function showDupes(){const G=dupeGroups(Object.values(db.cards));const d=$('#dlg');
+ d.innerHTML=`<h3>Mögliche Synonym-Duplikate</h3><p class=mut>Karten mit gleicher deutscher Bedeutung. Oft Synonyme, die sich zusammenführen lassen (Klick bearbeitet die Karte; unnötige löschen, Variante in „ALT/Hinweis“ aufnehmen).</p>${G.length?G.slice(0,40).map(([k,cs])=>`<div class=box><b>„${esc(k)}“</b>: ${cs.map(c=>`<a href="#" onclick="$('#dlg').close();editCard('${c.id}',brT);return false">${esc(c.es)}</a>`).join(' · ')}</div>`).join(''):'<p class=okc>Keine Auffälligkeiten 🎉</p>'}<div class=row><button class=btn onclick="$('#dlg').close()">Schließen</button></div>`;d.showModal()}
+/* ───────── Karte bearbeiten ───────── */
+let ec=null;
+function editCard(id,cb){const isNew=!id,c=isNew?mkCard({deck:db.cur==='*'?db.decks[0]:db.cur}):db.cards[id];if(!c)return;ec={id,isNew,c,cb};
+ const f=(k,l,v,x='')=>`<label>${l}<input id=e_${k} value="${esc(v)}" ${x}></label>`;
+ $('#dlg').innerHTML=`<form class=edit onsubmit="return false"><h3>${isNew?'Neue Karte':'Karte bearbeiten'}</h3>
+ ${f('es','Spanisch (mit Artikel / Infinitiv)',c.es)}${f('de','Deutsch (mehrere mit ;)',c.de.join(' ; '))}${f('alt','Varianten ALT (mit ;)',c.alt.join(' ; '))}
+ <label>Typ<select id=e_typ>${TYPES.map(t=>`<option ${c.typ===t?'selected':''}>${t}</option>`).join('')}</select></label>
+ ${f('hint','Hinweis',c.hint)}${f('bsp','Beispielsatz (Zielwort als {{Form|Grundform}})',c.bsp)}${f('bspde','Übersetzung',c.bspde)}${f('bsp2','Beispielsatz 2',c.bsp2)}${f('bsp2de','Übersetzung 2',c.bsp2de)}
+ ${f('tags','Tags (mit Komma)',c.tags.join(', '))}${f('deck','Deck',c.deck)}
+ <div class=row><button class=btn onclick="saveEdit()">Speichern</button><button class="btn ghost" onclick="$('#dlg').close()">Abbrechen</button>${isNew?'':'<button class="btn ghost" style="margin-left:auto" onclick="delCard()">Löschen</button>'}</div></form>`;$('#dlg').showModal()}
+function saveEdit(){const g=k=>$('#e_'+k).value.trim(),es=g('es'),de=g('de');if(!es||!de){toast('Spanisch und Deutsch sind Pflicht');return}
+ const c=ec.c;Object.assign(c,{es,de:splitS(de),alt:splitS(g('alt')),typ:g('typ'),hint:g('hint'),bsp:g('bsp'),bspde:g('bspde'),bsp2:g('bsp2'),bsp2de:g('bsp2de'),tags:splitT(g('tags')),deck:g('deck')||'Standard'});
+ if(ec.isNew)db.cards[c.id]=c;ensureDeck(c.deck);save();$('#dlg').close();if(ec.cb)ec.cb()}
+function delCard(){if(!confirm('Karte wirklich löschen?'))return;delete db.cards[ec.id];save();$('#dlg').close();if(route==='study'&&ses)nextItem();else if(ec.cb)ec.cb()}
+/* ───────── Import (ESLERN v1) ───────── */
+const KNOWN=['ES','DE','ALT','TYP','HINWEIS','BSP','BSP_DE','BSP2','BSP2_DE','TAGS','TITEL','NIVEAU'];
+function parseImport(txt,defDeck){const out={cards:[],texts:[],warn:[]};let deck=defDeck||'Standard',cur=null,last=null,tn=0;
+ const flush=()=>{if(!cur)return;const f=cur.f;
+  if(cur.k==='KARTE'){if(!f.ES||!f.DE)out.warn.push(`Zeile ${cur.line}: Karte ohne ES/DE übersprungen`);else{let typ=(f.TYP||'').toLowerCase().replace('ä','ae').trim();if(!TYPES.includes(typ)){if(f.TYP)out.warn.push(`Zeile ${cur.line}: unbekannter Typ „${f.TYP}“ → sonstiges`);typ='sonstiges'}
+   out.cards.push({deck:cur.deck,es:f.ES.trim(),de:splitS(f.DE),alt:splitS(f.ALT),typ,hint:f.HINWEIS||'',bsp:f.BSP||'',bspde:f.BSP_DE||'',bsp2:f.BSP2||'',bsp2de:f.BSP2_DE||'',tags:splitT(f.TAGS),line:cur.line})}}
+  else{if(!f.ES)out.warn.push(`Zeile ${cur.line}: Text ohne ES übersprungen`);else{tn++;out.texts.push({deck:cur.deck,title:f.TITEL||('Text '+tn),level:f.NIVEAU||'',es:f.ES,de:f.DE||''})}}cur=null};
+ let ln=0;for(const raw of txt.replace(/^﻿/,'').replace(/\r/g,'').split('\n')){ln++;const line=raw.trim();if(!line||line.startsWith('```'))continue;
+  if(/^#\s*DECK\s*:/i.test(line)){flush();deck=line.split(':').slice(1).join(':').trim()||deck;continue}
+  if(line.startsWith('#'))continue;
+  const mh=line.match(/^=+\s*(KARTE|TEXT)\s*=+$/i);if(mh){flush();cur={k:mh[1].toUpperCase(),deck,f:{},line:ln};last=null;continue}
+  const mk=line.match(/^([A-Za-zÄÖÜäöü_0-9]{2,10})\s*:\s*(.*)$/);
+  if(cur&&mk&&KNOWN.includes(mk[1].toUpperCase())){last=mk[1].toUpperCase();cur.f[last]=mk[2].trim();continue}
+  if(cur&&last)cur.f[last]+=' '+line;else out.warn.push(`Zeile ${ln}: nicht zuordenbar (übersprungen)`)}
+ flush();return out}
+let imp=null;
+async function readFiles(fl){const ta=$('#imptxt');for(const f of fl)ta.value+=(ta.value?'\n\n':'')+await f.text();toast(fl.length+' Datei(en) geladen')}
+function analyze(){const dk0=($('#impdeck').value||'Standard').trim();imp=parseImport($('#imptxt').value,dk0);const idx={};for(const c of Object.values(db.cards))idx[c.deck+'|'+keyOf(c.es)]=c;
+ let nw=0,ex=0;const keys=new Set();
+ for(const c of imp.cards){const k=c.deck+'|'+keyOf(c.es);if(idx[k]||keys.has(k))ex++;else nw++;keys.add(k)}
+ const known=new Set([...Object.values(db.cards).map(c=>keyOf(c.es)),...imp.cards.map(c=>keyOf(c.es))]);Object.values(db.cards).forEach(c=>c.alt.forEach(a=>known.add(keyOf(a))));imp.cards.forEach(c=>c.alt.forEach(a=>known.add(keyOf(a))));
+ const miss=new Set();for(const t of imp.texts)for(const g of parseGaps(t.es).filter(x=>x.g))if(!known.has(keyOf(g.l)))miss.add(`„${t.title}“: Lücke „${g.l}“ hat keine Karte`);
+ const fake=[...Object.values(db.cards),...imp.cards.map(c=>mkCard(c))],newIds=new Set(imp.cards.map(c=>keyOf(c.es)));
+ const syn=dupeGroups(fake).filter(([k,cs])=>cs.some(c=>newIds.has(keyOf(c.es))));
+ $('#imprep').innerHTML=`<div class=box><b>${nw} neue Karten</b>, ${ex} bereits vorhanden/doppelt, <b>${imp.texts.length} Texte</b>${imp.warn.length?`, <span class=warn>${imp.warn.length} Warnungen</span>`:''}</div>
+ ${miss.size?`<div class=box><b class=warn>Lücken ohne Karte (${miss.size})</b><br>${[...miss].slice(0,12).map(esc).join('<br>')}</div>`:''}
+ ${syn.length?`<div class=box><b class=warn>Mögliche Synonyme (${syn.length})</b> – gleiche deutsche Bedeutung:<br>${syn.slice(0,12).map(([k,cs])=>`„${esc(k)}“: ${cs.map(c=>esc(c.es)).join(' · ')}`).join('<br>')}<br><small>Import ist trotzdem möglich; später im Karten-Browser über „Duplikate prüfen“ bereinigen.</small></div>`:''}
+ ${imp.warn.length?`<div class=box><b class=warn>Hinweise</b><br>${imp.warn.slice(0,10).map(esc).join('<br>')}</div>`:''}
+ <button class=btn onclick="doImport()" ${imp.cards.length+imp.texts.length?'':'disabled'}>Jetzt importieren</button>`}
+function doImport(){const r=applyImport(imp,$('#impmode').value),sel=$('#imppk');
+ if(sel&&sel.value!==''&&pk.pkgs.length)pkMark(+sel.value,'i');
+ toast(`${r.a} neu, ${r.m} aktualisiert, ${r.s} übersprungen, ${r.t} Texte`);imp=null;$('#imptxt').value='';$('#imprep').innerHTML='';render()}
+function applyImport(imp,mode){let a=0,m=0,s=0,t=0;const idx={};for(const c of Object.values(db.cards)){idx[c.deck+'|'+keyOf(c.es)]=c;c.alt.forEach(x=>idx[c.deck+'|'+keyOf(x)]=idx[c.deck+'|'+keyOf(x)]||c)}
+ const now=Date.now();imp.cards.forEach((n,i)=>{ensureDeck(n.deck);const ex=idx[n.deck+'|'+keyOf(n.es)]||n.alt.map(x=>idx[n.deck+'|'+keyOf(x)]).find(Boolean);
+  if(ex){if(mode==='skip'){s++;return}
+   if(mode==='replace')Object.assign(ex,{es:n.es,de:n.de,alt:n.alt,typ:n.typ,hint:n.hint,bsp:n.bsp,bspde:n.bspde,bsp2:n.bsp2,bsp2de:n.bsp2de,tags:n.tags});
+   else{for(const d of n.de)if(!ex.de.some(x=>keyOf(x)===keyOf(d)))ex.de.push(d);for(const x of n.alt)if(keyOf(x)!==keyOf(ex.es)&&!ex.alt.some(y=>keyOf(y)===keyOf(x)))ex.alt.push(x);
+    for(const k of ['hint','bsp','bspde','bsp2','bsp2de'])if(!ex[k]&&n[k])ex[k]=n[k];if(ex.typ==='sonstiges')ex.typ=n.typ;n.tags.forEach(x=>{if(!ex.tags.includes(x))ex.tags.push(x)})}m++}
+  else{const c=mkCard({...n,created:now+i});delete c.line;db.cards[c.id]=c;idx[c.deck+'|'+keyOf(c.es)]=c;a++}});
+ const T={};Object.values(db.texts).forEach(x=>T[x.deck+'|'+norm(x.title)]=x);
+ for(const x of imp.texts){ensureDeck(x.deck);const k=x.deck+'|'+norm(x.title);if(T[k]){if(mode==='skip'){s++;continue}Object.assign(T[k],x);t++}else{const id=uid();db.texts[id]={id,...x};T[k]=db.texts[id];t++}}
+ save();return{a,m,s,t}}
+/* ═════════ NEUE VOKABELN: Anleitung · Prompt · Screenshot-Packer · Sendeplan · Import ═════════ */
+const PRE={claude:[1568,4.5,20],gpt:[2048,15,10],gem:[2048,15,16]};
+let pk={mode:'img',imgs:[],pkgs:[],urls:[],key:'',busy:false,prev:'ok',minSc:1};
+const FENCE='```';
+function buildPrompt(){const P=db.prompt,words=Object.values(db.cards).map(c=>c.es),have=P.useList&&words.length?words.join('; '):'keine';
+return `Du bist Spanischlehrer und Daten-Konverter zugleich. Ich schicke dir Screenshots (oder OCR-Text daraus) von Übersetzer-Apps (Google Translate, DeepL, Linguee ...). Daraus erzeugst du Lerndaten für meine Vokabel-App. Gib die Daten exakt im unten definierten Format "ESLERN v1" aus. Das Format wird von einem Programm geparst, Abweichungen führen zu Fehlern.
+
+KONTEXT
+- Muttersprache: Deutsch. Zielsprache: Spanisch (Spanien).
+- Niveau: ${P.level}
+- Deck-Name: ${P.deck.trim()||'Standard'}
+- Interessen/Themen für die Lückentexte: ${P.interests.trim()||'keine Vorgabe, nimm neutrale Alltagsszenen'}
+
+BEREITS VORHANDEN (nicht erneut anlegen, auch keine Synonyme davon):
+${have}
+
+═══ ARBEITSWEISE: PAKETE UND PAUSEN (schont mein Nutzungslimit) ═══
+- Ich schicke die Screenshots in mehreren Paketen, jeweils in einer eigenen Nachricht. Auf Bildbögen tragen die Screenshots kleine Nummern in der Ecke.
+- Bearbeite immer nur das Paket aus meiner letzten Nachricht. Gib das Ergebnis aus und STOPPE. Beginne nie ungefragt etwas Neues, stelle keine Rückfragen und schreibe keine langen Erklärungen.
+- Karten aus früheren Paketen dieses Chats gelten als vorhanden (Dedup-Regeln gelten über alle Pakete hinweg).
+- Pro Paket erzeugst du die Karten UND passende Lückentexte nur zu den neuen Karten dieses Pakets.
+- Wird eine Antwort zu lang (mehr als ca. 40 Karten): Brich nach einem vollständigen Block ab, schließe den Code-Block, schreibe "# WEITER" als letzte Kommentarzeile und warte auf mein "weiter". Wiederhole nichts bereits Ausgegebenes. Jeder Teil beginnt wieder mit "#ESLERN v1" und "#DECK:".
+- Schließe jeden Code-Block mit diesen Kommentarzeilen ab:
+    # STAND: Screenshots <von>-<bis> verarbeitet; <n> Karten; <m> Texte
+    # NÄCHSTER: Screenshot <Nummer>
+  So kann ich in einem neuen Chat exakt weitermachen, falls mein Limit erreicht ist.
+
+═══ AUFGABE ═══
+1. Lies alle Screenshots des Pakets. Die Übersetzungsrichtung kann ES→DE oder DE→ES sein. Ignoriere Oberfläche, Werbung, Verlauf-Icons und Tastatur.
+2. Zeigt ein Screenshot nur einen ganzen Satz: Extrahiere die lernwürdigen Wörter und festen Wendungen (max. ca. 1-4 pro Satz) und lege den Satz als Beispielsatz (BSP) bei der passenden Karte ab.
+3. Erzeuge pro BEDEUTUNGSEINHEIT genau EINE Karte (siehe Dedup-Regeln).
+4. Erzeuge zusammenhängende spanische Lückentexte (===TEXT===), damit ich die Vokabeln im Kontext üben kann.
+5. Gib nur den fertigen Datei-Inhalt aus (siehe AUSGABE).
+
+═══ DEDUP-REGELN (sehr wichtig: keine semantischen Duplikate) ═══
+a) Grundform statt Beugung: Verben im Infinitiv, Nomen im Singular (mit Artikel), Adjektive in der Grundform "delicioso/a". Kommt nur "comió" oder "casas" vor, lege "comer" bzw. "la casa" an und setze die Form in den Beispielsatz.
+b) Ein Wort, eine Karte. Taucht dasselbe Wort mehrfach auf, gibt es nur eine Karte. Verschiedene Bedeutungen desselben Wortes werden im Feld DE zusammengeführt (max. 3, getrennt durch " ; ").
+c) Synonyme erhalten KEINE eigene Karte, wenn sie dasselbe Deutsche bedeuten und auf den Screenshots nur als Alternativen eines Übersetzers auftauchen. Nimm die gebräuchlichste Variante für Niveau und Spanien-Spanisch und erwähne die Alternative im HINWEIS ("Syn.: ..."). Ausnahme: Ich habe ein Wort erkennbar gezielt gesucht oder ausgewählt, dann gilt dieses Wort.
+d) Regionale Varianten und Schreibvarianten (coche/auto, móvil/celular) kommen in das Feld ALT derselben Karte, nicht in eine neue Karte.
+e) Maskulin/Feminin-Paare (profesor/profesora) sind eine Karte: "profesor/a" oder "el profesor/la profesora".
+f) Gegenteile (grande/pequeño) sind getrennte Karten. Dasselbe gilt für echte Bedeutungsunterschiede (ser/estar).
+g) Sätze und Phrasen bekommen nur dann eine eigene Karte (TYP: satz oder ausdruck), wenn sie feste Wendungen sind, deren Gesamtbedeutung man nicht aus den Wörtern ableiten kann (z. B. "tener ganas de"). Höchstens ca. 10 % der Karten. Alles andere wird zu Wortkarten plus Beispielsatz.
+h) Prüfe vor der Ausgabe jede Karte gegen BEREITS VORHANDEN und gegen die anderen Karten (gleiche deutsche Bedeutung, gleiche Wortfamilie, Singular/Plural, Infinitiv/Beugung). Streiche oder verschmelze Dubletten.
+i) Unleserliche oder unsichere Stellen nicht raten. Schreibe sie als Kommentarzeile "# UNKLAR: Screenshot 4, ..." an das Ende.
+
+═══ FORMAT "ESLERN v1" ═══
+Reiner Text (UTF-8), zeilenbasiert.
+- Zeilen mit # am Anfang sind Kommentare, außer "#DECK: Name".
+- Die Datei beginnt mit:
+    #ESLERN v1
+    #DECK: <Deck-Name>
+- Ein Block beginnt mit  ===KARTE===  oder  ===TEXT===  (je in einer eigenen Zeile).
+- Danach folgen Zeilen "SCHLÜSSEL: Wert". Pro Schlüssel eine Zeile, keine Zeilenumbrüche im Wert.
+- Leerzeilen zwischen Blöcken sind erlaubt.
+
+Block ===KARTE=== (ein Vokabeleintrag):
+  ES:        Pflicht. Spanische Grundform. Nomen MIT Artikel (el/la/los/las), Verben im Infinitiv (reflexiv: "llamarse"), Adjektive als "delicioso/a".
+  DE:        Pflicht. Deutsche Bedeutung(en), getrennt durch " ; ", max. 3. Nomen mit Artikel ("das Haus"), Verben im Infinitiv ("gehen").
+  ALT:       Optional. Akzeptierte Varianten des spanischen Wortes (Regionalismus, Schreibvariante), getrennt durch " ; ".
+  TYP:       Optional. Genau einer von: nomen, verb, adjektiv, adverb, praeposition, konjunktion, pronomen, ausdruck, satz, sonstiges
+  HINWEIS:   Optional. Kurze Lernhilfe: Unregelmäßigkeiten ("yo voy, tú vas"), Synonyme ("Syn.: ..."), Falsche Freunde, Merkhilfe. Max. 1 Zeile.
+  BSP:       Empfohlen. Ein natürlicher spanischer Beispielsatz. Markiere die Zielwortform so: {{Form}} oder, wenn die Form von der Grundform abweicht, {{Form|Grundform}}. Beispiel: Ayer {{fui|ir}} al cine.
+  BSP_DE:    Deutsche Übersetzung zu BSP.
+  BSP2:      Optional. Zweiter Beispielsatz (gleiche Markierung).
+  BSP2_DE:   Optional. Übersetzung dazu.
+  TAGS:      Optional. Themen, durch Komma getrennt (z. B. essen, restaurant).
+
+Block ===TEXT=== (Lückentext, zusammenhängender Text im Kontext):
+  TITEL:     Pflicht. Kurzer Titel.
+  NIVEAU:    Optional (A1 ... C1).
+  ES:        Pflicht. Der spanische Text. Absätze trennst du mit " // ". Lückenwörter markierst du mit {{Form|Grundform}}. Die Grundform MUSS exakt dem ES-Feld einer Karte entsprechen (bei Nomen ist der Artikel optional: "{{casas|la casa}}" oder "{{casas|casa}}"). Ist die Form gleich der Grundform, genügt {{Wort}}.
+  DE:        Optional, aber erwünscht. Deutsche Übersetzung des ganzen Textes (Absätze ebenfalls mit " // ").
+
+═══ REGELN FÜR DIE TEXTE ═══
+- Jeder Text: 80-150 Wörter, ein klares Thema, natürliches Spanisch auf dem angegebenen Niveau. Kein Wort-für-Wort-Lehrbuchstil.
+- Pro Text 6-12 Lücken. Höchstens eine Lücke pro Satz, wenn möglich.
+- Jede neue Karte soll in mindestens einem Text als Lücke vorkommen. Gruppiere Karten nach Thema sinnvoll. Plane etwa 1 Text pro 8-12 Karten. Wörter, die nicht in einen Text passen, bleiben in BSP.
+- Beuge Verben realistisch (Zeitformen passend zum Niveau). Die Grundform steht hinter dem |.
+- Lücken nur um Wörter, für die es Karten gibt (auch Karten aus BEREITS VORHANDEN sind erlaubt). Alle anderen Wörter bleiben unmarkiert.
+- Erfinde keine Fakten über mich.
+
+═══ AUSGABE ═══
+- Gib das Ergebnis in EINEM einzigen Code-Block (${FENCE}text ... ${FENCE}) aus, ohne Einleitung und ohne Erklärungen davor oder danach. Danach darfst du in einem Satz sagen, wie viele Karten und Texte es sind.
+- Zuerst alle ===KARTE===-Blöcke, dann alle ===TEXT===-Blöcke.
+- Letzte Zeilen im Block: die Kommentare # STAND und # NÄCHSTER (siehe oben), bei Bedarf # UNKLAR und # WEITER.
+
+═══ BEISPIEL (nur zur Orientierung, nicht übernehmen) ═══
+${FENCE}text
+#ESLERN v1
+#DECK: Urlaub 2026
+
+===KARTE===
+ES: ir
+DE: gehen ; fahren
+TYP: verb
+HINWEIS: unregelmäßig: voy, vas, va, vamos, vais, van; Indefinido: fui, fuiste, fue
+BSP: Ayer {{fui|ir}} al cine con mis amigos.
+BSP_DE: Gestern ging ich mit meinen Freunden ins Kino.
+TAGS: bewegung, alltag
+
+===KARTE===
+ES: el coche
+DE: das Auto
+ALT: el auto
+TYP: nomen
+HINWEIS: Syn.: el automóvil (formeller). In Lateinamerika oft "el carro".
+BSP: Mi {{coche}} es muy viejo.
+BSP_DE: Mein Auto ist sehr alt.
+TAGS: verkehr
+
+===TEXT===
+TITEL: Ein Ausflug
+NIVEAU: A2
+ES: Ayer {{fui|ir}} al centro en mi {{coche}}. // Después comimos en un restaurante y todo estaba delicioso.
+DE: Gestern fuhr ich in meinem Auto in die Innenstadt. // Danach aßen wir in einem Restaurant und alles war köstlich.
+
+# STAND: Screenshots 1-3 verarbeitet; 2 Karten; 1 Text
+# NÄCHSTER: Screenshot 4
+${FENCE}
+
+Bestätige nicht, sondern warte auf mein erstes Paket.`}
+/* Sendeplan */
+function planInfo(){const P=db.pack,now=Date.now(),w=P.win*36e5;P.log=P.log.filter(t=>t>now-w*2);
+ const act=P.log.filter(t=>t>now-w).sort((a,b)=>a-b),used=act.length,left=Math.max(0,P.budget-used);let kind='ok',until=0;
+ if(P.blockUntil>now){kind='stop';until=P.blockUntil}
+ else if(used>=P.budget){kind='stop';until=act[used-P.budget]+w}
+ else{const last=P.log.length?Math.max(...P.log):0;if(last&&last+P.pause*MIN>now){kind='wait';until=last+P.pause*MIN}else if(used/Math.max(1,P.budget)*100>=P.warn)kind='warn'}
+ return{used,left,kind,until,pct:Math.min(100,Math.round(used/Math.max(1,P.budget)*100)),forced:P.blockUntil>now}}
+const fmtT=ms=>{const s=Math.max(0,Math.ceil(ms/1e3)),h=Math.floor(s/3600),m=Math.floor(s%3600/60),r=s%60;return(h?h+':'+String(m).padStart(2,'0'):m)+':'+String(r).padStart(2,'0')};
+const clock=t=>new Date(t).toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'});
+const jobOf=create=>{const J=db.pack.jobs;let j=J[pk.key];if(!j&&create&&pk.key){j=J[pk.key]={t:Date.now(),p:{}};const ks=Object.keys(J);if(ks.length>12){ks.sort((a,b)=>J[a].t-J[b].t);delete J[ks[0]]}}return j||{p:{}}};
+const nextPkg=()=>{const j=jobOf();const i=pk.pkgs.findIndex((_,i)=>!(j.p[i]&&j.p[i].s));return i};
+function pkBanner(){const b=$('#banner');if(!b){clearInterval(tickT);tickT=null;document.title='Español Learn';return}
+ const I=planInfo(),n=nextPkg(),now=Date.now(),P=db.pack;let h='',t='';
+ if(I.kind==='stop'){h=`⛔ <b>${I.forced?'KI-Limit gemeldet':'Limit laut Plan erreicht'}</b> (${I.used} von ${P.budget} Nachrichten in ${P.win} h). Nächste Nachricht frühestens um <b>${clock(I.until)}</b> – in <b>${fmtT(I.until-now)}</b>. Dein Fortschritt bleibt gespeichert, du kannst die App schließen.`;t='⛔ '+fmtT(I.until-now)}
+ else if(I.kind==='wait'){h=`⏳ <b>Kurze Pause</b> (${P.pause} min zwischen Paketen schont dein Kontingent). Weiter in <b>${fmtT(I.until-now)}</b>.`;t='⏳ '+fmtT(I.until-now)}
+ else if(I.kind==='warn'){h=`⚠ <b>Kontingent wird knapp:</b> ${I.used} von ${P.budget} Nachrichten verbraucht, nur noch <b>${I.left}</b> übrig. Plane jetzt eine längere Pause ein oder schicke nur noch das Wichtigste.`}
+ else h=`✅ <b>Bereit.</b> ${pk.pkgs.length?(n>=0?`Als Nächstes: <b>Paket ${n+1}</b> senden.`:'Alle Pakete sind gesendet 🎉'):'Erzeuge zuerst Pakete (Schritt ②).'} Noch ${I.left} von ${P.budget} Nachrichten im ${P.win}-h-Fenster.`;
+ b.className='banner '+I.kind;b.innerHTML=h+`<div class=meter><i style="width:${I.pct}%"></i></div>`;
+ document.title=(t?t+' · ':'')+'Español Learn';
+ if((pk.prev==='stop'||pk.prev==='wait')&&(I.kind==='ok'||I.kind==='warn')&&P.notify&&'Notification' in window&&Notification.permission==='granted'){try{new Notification('Español Learn',{body:'Pause vorbei – du kannst das nächste Paket senden.'})}catch(e){}}
+ pk.prev=I.kind}
+function pkPS(k,v){db.pack[k]=v;save();pkBanner()}
+function pkNotify(on){db.pack.notify=on;save();if(on&&'Notification' in window&&Notification.permission==='default')Notification.requestPermission()}
+function pkLimitHit(){const m=parseFloat(prompt('Die KI meldet „Limit erreicht“. In wie vielen Minuten ist es laut Meldung wieder frei? (z. B. 180)'));if(m>0){db.pack.blockUntil=Date.now()+m*MIN;save();pkBanner()}}
+function pkUnblock(){db.pack.blockUntil=0;save();pkBanner()}
+function pkAddMsg(){db.pack.log.push(Date.now());save();pkBanner()}
+function pkMark(i,w){const j=jobOf(true),P=db.pack,now=Date.now();if(!pk.key)return;const st=j.p[i]=j.p[i]||{};
+ if(w==='s'){if(planInfo().kind==='stop'&&!confirm('Laut Plan ist dein Limit erreicht bzw. gesperrt. Trotzdem als gesendet eintragen?')){if(!st.s)delete j.p[i];return}st.s=now;P.log.push(now)}
+ else if(w==='i'){st.i=now;if(!st.s)st.s=now}
+ else{if(st.s)P.log=P.log.filter(t=>t!==st.s);delete j.p[i]}
+ save();pkPlan();pkImpSel()}
+const pkPending=()=>{const j=jobOf();return pk.pkgs.map((_,i)=>i).filter(i=>j.p[i]&&j.p[i].s&&!j.p[i].i)};
+function pkImpSel(){const s=$('#imppkw');if(!s)return;const L=pkPending();s.innerHTML=L.length?`<label>Gehört zu Paket <select id=imppk>${L.map(i=>`<option value=${i}>Paket ${i+1} (Screenshots ${pk.pkgs[i].a}–${pk.pkgs[i].z})</option>`).join('')}<option value="">– keinem –</option></select></label>`:''}
+function pkPlan(){const el=$('#plan');if(!el)return;const j=jobOf(),n=nextPkg();
+ el.innerHTML=pk.pkgs.length?pk.pkgs.map((p,i)=>{const st=j.p[i]||{},state=st.i?['i','✔ importiert']:st.s?['s','gesendet '+clock(st.s)]:['','offen'];
+  return `<div class="box pkg ${i===n?'next':''}"><div class=row style="margin:0"><b>Paket ${i+1} / ${pk.pkgs.length}</b><small>Screenshots ${p.a}–${p.z} · ${p.kind==='img'?`${p.sheets.length} Bögen · ${(p.bytes/1048576).toFixed(1)} MB`:`${p.text.length} Zeichen Text`}</small><span style="flex:1"></span><span class="badge ${state[0]}">${state[1]}</span></div>
+  ${p.kind==='img'?`<div class=sheets>${p.sheets.map(o=>`<a href="${o.url}" download="${o.name}" title="${o.name}"><img src="${o.url}" alt=""></a>`).join('')}</div>`:`<textarea id=pkt${i} rows=4 readonly>${esc(p.full)}</textarea>`}
+  <div class=row>${p.kind==='img'?`<button class="btn ghost sm" onclick="pkZip(${i})">📦 Bögen als ZIP</button>`:`<button class="btn ghost sm" onclick="pkCopy(${i})">Kopieren</button><button class="btn ghost sm" onclick="pkTxt(${i})">Als .txt</button>`}
+  <button class="btn sm" onclick="pkMark(${i},'s')" ${st.s?'disabled':''}>✔ Habe ich gesendet</button><button class="btn ghost sm" onclick="pkMark(${i},'i')" ${st.i?'disabled':''}>✔ Antwort importiert</button>${st.s?`<button class="btn ghost sm" onclick="pkMark(${i},'x')">↺ zurücksetzen</button>`:''}</div></div>`}).join(''):'<p class=mut>Noch keine Pakete – erzeuge sie in Schritt ②.</p>';
+ pkBanner()}
+/* Packer */
+const pkSet=(k,v)=>{db.pack.cfg[k]=v;save()};
+function pkPreset(v){const c=db.pack.cfg;c.preset=v;const p=PRE[v];if(p){c.edge=p[0];c.maxmb=p[1];c.permsg=p[2]}save();pNew()}
+function pkMode(m){pk.mode=m;pk.pkgs=[];pk.key='';pNew()}
+const pkKey=()=>{const c=db.pack.cfg;return pk.mode+':'+hash([c.edge,c.cols,c.top,c.bot,c.gap,c.permsg,c.maxch,...pk.imgs.map(m=>m.name+':'+m.size)].join('|'))};
+function pkReset(){pk.urls.forEach(u=>URL.revokeObjectURL(u));pk.urls=[];pk.pkgs=[];pk.key=''}
+async function pkAdd(files){for(const f of files){if(!f.type.startsWith('image/'))continue;try{const bmp=await createImageBitmap(f);pk.imgs.push({name:f.name||('bild'+pk.imgs.length),size:f.size,bmp,w:bmp.width,h:bmp.height,url:URL.createObjectURL(f)})}catch(e){}}
+ pk.imgs.sort((a,b)=>a.name.localeCompare(b.name,undefined,{numeric:true}));pkReset();pkThumbs();pkResult();pkPlan()}
+function pkThumbs(){const c=$('#cnt');if(!c)return;c.textContent=pk.imgs.length+' Bilder';$('#thumbs').innerHTML=pk.imgs.map((m,i)=>`<div title="${esc(m.name)}"><img src="${m.url}" alt=""><b>${i+1}</b><button onclick="pkRm(${i})">×</button></div>`).join('')}
+function pkRm(i){URL.revokeObjectURL(pk.imgs[i].url);pk.imgs.splice(i,1);pkReset();pkThumbs();pkResult();pkPlan()}
+function pkClear(){pk.imgs.forEach(m=>URL.revokeObjectURL(m.url));pk.imgs=[];pkReset();pkThumbs();pkResult();pkPlan()}
+const pkStatus=m=>{const e=$('#pkst');if(e)e.innerHTML=m};
+function pkLayout(c){const W=Math.floor((c.edge-(c.cols+1)*c.gap)/c.cols),sheets=[];let S=null;const mk=()=>({cols:Array(c.cols).fill(c.gap),items:[]});
+ pk.imgs.forEach((im,i)=>{const sy=Math.round(im.h*c.top/100),shh=Math.max(10,Math.round(im.h*(1-(c.top+c.bot)/100)));let sc=Math.min(1,W/im.w),ch=shh*sc;const maxH=c.edge-2*c.gap;if(ch>maxH){sc=maxH/shh;ch=maxH}
+  if(!S)S=mk();let ci=S.cols.indexOf(Math.min(...S.cols));if(S.cols[ci]+ch+c.gap>c.edge&&S.items.length){sheets.push(S);S=mk();ci=0}
+  S.items.push({i,x:c.gap+ci*(W+c.gap),y:S.cols[ci],w:im.w*sc,h:ch,sy,sh:shh,sc});S.cols[ci]+=ch+c.gap});
+ if(S&&S.items.length)sheets.push(S);return{sheets,W}}
+function pkDraw(S,c,W){const cv=document.createElement('canvas');cv.width=c.cols*W+(c.cols+1)*c.gap;cv.height=Math.ceil(Math.max(...S.cols));const x=cv.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,cv.width,cv.height);x.imageSmoothingQuality='high';
+ for(const it of S.items){const im=pk.imgs[it.i];x.drawImage(im.bmp,0,it.sy,im.w,it.sh,it.x,it.y,it.w,it.h);
+  if(c.num){const t=String(it.i+1);x.font='bold 15px sans-serif';const w=x.measureText(t).width+12;x.fillStyle='#c2452d';x.fillRect(it.x,it.y,w,22);x.fillStyle='#fff';x.fillText(t,it.x+6,it.y+16)}}
+ return cv}
+async function pkEncode(cv,c){let q=c.q/100,b;for(;;){b=await new Promise(r=>cv.toBlob(r,'image/jpeg',q));if(b.size<=c.maxmb*1048576||q<=.45)break;q-=.06}return b}
+async function pkBuild(){if(!pk.imgs.length){toast('Bitte zuerst Screenshots hinzufügen');return}if(pk.busy)return;pk.busy=true;pkStatus('Erzeuge Bögen …');
+ pkReset();const c=db.pack.cfg,{sheets,W}=pkLayout(c),out=[];let minSc=1;
+ for(const [n,S] of sheets.entries()){const cv=pkDraw(S,c,W),b=await pkEncode(cv,c);S.items.forEach(i=>minSc=Math.min(minSc,i.sc));
+  const ids=S.items.map(i=>i.i+1).sort((p,q)=>p-q),url=URL.createObjectURL(b);pk.urls.push(url);
+  out.push({name:`bogen_${String(n+1).padStart(2,'0')}_shots_${ids[0]}-${ids[ids.length-1]}.jpg`,b,ids,w:cv.width,h:cv.height,url})}
+ for(let i=0;i<out.length;i+=c.permsg){const sh=out.slice(i,i+c.permsg),ids=sh.flatMap(s=>s.ids);pk.pkgs.push({kind:'img',sheets:sh,a:Math.min(...ids),z:Math.max(...ids),bytes:sh.reduce((s,o)=>s+o.b.size,0)})}
+ pk.minSc=minSc;pk.key=pkKey();pk.busy=false;pkStatus('');pkResult();pkPlan()}
+function pkResult(){const e=$('#pkres');if(!e)return;if(!pk.pkgs.length){e.innerHTML='';return}const sh=pk.pkgs.reduce((s,p)=>s+(p.sheets?p.sheets.length:0),0);
+ e.innerHTML=pk.pkgs[0].kind==='img'?`<div class=box><b>${pk.imgs.length} Screenshots → ${sh} Bögen → ${pk.pkgs.length} Paket(e)</b> (je Paket eine KI-Nachricht)${pk.minSc<.5?`<div class=warn>⚠ Kleinster Skalierungsfaktor ${Math.round(pk.minSc*100)} %: Text könnte schwer lesbar werden. Wähle weniger Spalten oder schneide oben/unten ab.</div>`:`<div class=okc>Skalierung ab ${Math.round(pk.minSc*100)} %, Lesbarkeit voraussichtlich gut.</div>`}<small>Weiter mit Schritt ③ (Sendeplan).</small></div>`
+  :`<div class=box><b>${pk.imgs.length} Screenshots → ${pk.pkgs.length} Textpaket(e)</b><div class=mut>Bitte kurz überfliegen: OCR-Fehler bei Akzenten sind möglich. Weiter mit Schritt ③.</div></div>`}
+/* ZIP ohne Kompression */
+const crcT=(()=>{const t=[];for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
+const crc32=u=>{let c=-1;for(let i=0;i<u.length;i++)c=crcT[(c^u[i])&255]^(c>>>8);return(c^-1)>>>0};
+function makeZip(files){const enc=new TextEncoder(),parts=[],cen=[];let off=0;
+ for(const f of files){const nm=enc.encode(f.name),crc=crc32(f.data),sz=f.data.length;
+  const lh=new DataView(new ArrayBuffer(30));lh.setUint32(0,0x04034b50,true);lh.setUint16(4,20,true);lh.setUint16(6,0x0800,true);lh.setUint16(12,0x21,true);lh.setUint32(14,crc,true);lh.setUint32(18,sz,true);lh.setUint32(22,sz,true);lh.setUint16(26,nm.length,true);
+  parts.push(lh.buffer,nm,f.data);
+  const ch=new DataView(new ArrayBuffer(46));ch.setUint32(0,0x02014b50,true);ch.setUint16(4,20,true);ch.setUint16(6,20,true);ch.setUint16(8,0x0800,true);ch.setUint16(14,0x21,true);ch.setUint32(16,crc,true);ch.setUint32(20,sz,true);ch.setUint32(24,sz,true);ch.setUint16(28,nm.length,true);ch.setUint32(42,off,true);
+  cen.push(ch.buffer,nm);off+=30+nm.length+sz}
+ const cs=cen.reduce((s,p)=>s+(p.byteLength!==undefined?p.byteLength:p.length),0),e=new DataView(new ArrayBuffer(22));e.setUint32(0,0x06054b50,true);e.setUint16(8,files.length,true);e.setUint16(10,files.length,true);e.setUint32(12,cs,true);e.setUint32(16,off,true);
+ return new Blob([...parts,...cen,e.buffer],{type:'application/zip'})}
+async function pkZip(i){const p=pk.pkgs[i],files=[];for(const o of p.sheets)files.push({name:o.name,data:new Uint8Array(await o.b.arrayBuffer())});dl(`paket_${String(i+1).padStart(2,'0')}.zip`,makeZip(files))}
+const pkCopy=i=>{navigator.clipboard?navigator.clipboard.writeText(pk.pkgs[i].full).then(()=>toast('Kopiert')):toast('Zwischenablage nicht verfügbar')};
+const pkTxt=i=>dl(`ocr_paket_${i+1}.txt`,pk.pkgs[i].full);
+/* OCR-Modus (optional) */
+const loadScript=src=>new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=()=>rej(new Error('Konnte '+src+' nicht laden (Internet?)'));document.head.appendChild(s)});
+async function pkOCR(){if(!pk.imgs.length){toast('Bitte zuerst Screenshots hinzufügen');return}if(pk.busy)return;pk.busy=true;pkReset();const pr=$('#prog'),c=db.pack.cfg;pr.hidden=false;pr.value=0;pr.max=pk.imgs.length;
+ try{if(!window.Tesseract){pkStatus('Lade OCR-Bibliothek …');await loadScript('https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js')}
+  pkStatus('Lade Sprachdaten …');const w=await Tesseract.createWorker(c.langs||'spa+deu'),texts=[];
+  for(const [i,im] of pk.imgs.entries()){pkStatus(`Screenshot ${i+1} / ${pk.imgs.length}: ${esc(im.name)}`);
+   const sy=Math.round(im.h*c.top/100),sh=Math.max(10,Math.round(im.h*(1-(c.top+c.bot)/100))),k=im.w<1000?2:1,cv=document.createElement('canvas');cv.width=im.w*k;cv.height=sh*k;const x=cv.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,cv.width,cv.height);x.drawImage(im.bmp,0,sy,im.w,sh,0,0,cv.width,cv.height);
+   const r=await w.recognize(cv);texts.push({n:i+1,t:`### Screenshot ${i+1} (${im.name})\n${r.data.text.split('\n').map(l=>l.trim()).filter(l=>l.length>1).join('\n')}`});pr.value=i+1}
+  await w.terminate();
+  const max=c.maxch||30000,groups=[];let cur=null;for(const t of texts){if(cur&&cur.len+t.t.length>max){groups.push(cur);cur=null}if(!cur)cur={a:t.n,z:t.n,parts:[],len:0};cur.parts.push(t.t);cur.z=t.n;cur.len+=t.t.length}if(cur)groups.push(cur);
+  pk.pkgs=groups.map((g,i)=>{const text=g.parts.join('\n\n');return{kind:'txt',a:g.a,z:g.z,text,full:`OCR-Text von Übersetzer-Screenshots (Paket ${i+1}/${groups.length}). OCR-Fehler und vertauschte Spalten sind möglich; bitte plausibilisieren.\n\n${text}`}});
+  pk.key=pkKey();pkStatus('Fertig.');pr.hidden=true;pkResult();pkPlan()}
+ catch(e){pkStatus('<span class=warn>Fehler: '+esc(e.message)+'</span>')}
+ pk.busy=false}
+addEventListener('paste',e=>{if(route!=='new'||!e.clipboardData)return;const f=[...e.clipboardData.files].filter(x=>x.type.startsWith('image/'));if(f.length)pkAdd(f)});
+function pkBind(){const d=$('#drop'),f=$('#fi');if(!d)return;d.onclick=()=>f.click();f.onchange=()=>{pkAdd(f.files);f.value=''};d.ondragover=e=>{e.preventDefault();d.classList.add('over')};d.ondragleave=()=>d.classList.remove('over');d.ondrop=e=>{e.preventDefault();d.classList.remove('over');pkAdd(e.dataTransfer.files)}}
+function pkPromptUpd(){const t=$('#ptxt');if(!t)return;t.value=buildPrompt();const n=Object.keys(db.cards).length;$('#pinfo').textContent=`${t.value.length.toLocaleString('de-DE')} Zeichen${db.prompt.useList?` · enthält ${n} vorhandene Wörter`:''}`}
+function copyPrompt(){const t=buildPrompt();const done=()=>toast('Prompt kopiert – jetzt in den KI-Chat einfügen');(navigator.clipboard?navigator.clipboard.writeText(t).then(done,()=>{$('#ptxt').select();document.execCommand('copy');done()}):Promise.resolve().then(()=>{$('#ptxt').select();document.execCommand('copy');done()}))}
+function pNew(){clearInterval(tickT);const P=db.prompt,c=db.pack.cfg,Q=db.pack,pn=(k,l,w=80)=>`<label>${l} <input type=number value="${c[k]}" style="width:${w}px" onchange="pkSet('${k}',+this.value)"></label>`,pp=(k,l,w=70,st='')=>`<label>${l} <input type=number ${st} value="${Q[k]}" style="width:${w}px" onchange="pkPS('${k}',+this.value)"></label>`;
+ view(`<h2>Neue Vokabeln aus Screenshots</h2>
+ <div class=box><h3 style="margin-top:0">So geht's – in 4 Schritten</h3><ol class=guide>
+ <li><b>Prompt kopieren</b> (Schritt ①). Er erklärt der KI das Datenformat, die Regeln gegen Synonym-Duplikate und wie sie Lückentexte erzeugt. Er enthält automatisch alle Wörter, die du schon hast.</li>
+ <li><b>Screenshots bündeln</b> (Schritt ②). Viele Screenshots werden zu wenigen Bildbögen („Paketen“), damit sie in KI-Nachrichten passen. Alles bleibt lokal in deinem Browser.</li>
+ <li><b>Pakete senden</b> (Schritt ③): Erste Nachricht = Prompt + Paket 1 (in einen neuen Chat bei Claude, ChatGPT, Gemini …). Danach jeweils ein Paket pro Nachricht. Der Sendeplan sagt dir, wann du pausieren solltest, und warnt, wenn dein Kontingent knapp wird.</li>
+ <li><b>Antwort einfügen</b> (Schritt ④): Antwort der KI in die App kopieren → prüfen → importieren. Die Karten, Lückentexte und Übungen sind sofort da.</li></ol>
+ <p class=mut style="margin-bottom:0"><b>Tipps:</b> Benenne Screenshots so, dass die Reihenfolge stimmt (die App sortiert nach Dateiname). Schneide Statusleiste und Tastatur ab (Schritt ②). Ist dein Limit erreicht oder startest du einen neuen Chat: Prompt erneut kopieren – er kennt dann alle bis dahin importierten Wörter, und die KI macht beim <i>„# NÄCHSTER“</i>-Screenshot weiter.</p></div>
+
+ <details class=box open><summary>① KI-Prompt</summary>
+ <div class=row><label>Niveau <select onchange="db.prompt.level=this.value;save();pkPromptUpd()">${['A1','A2','B1','B2','C1'].map(l=>`<option ${P.level===l?'selected':''}>${l}</option>`).join('')}</select></label>
+ <label>Deck <input value="${esc(P.deck)}" placeholder="z. B. Urlaub 2026" oninput="db.prompt.deck=this.value;save();pkPromptUpd()"></label>
+ <label>Themen <input value="${esc(P.interests)}" placeholder="z. B. Reisen, Essen" oninput="db.prompt.interests=this.value;save();pkPromptUpd()"></label></div>
+ <label class=row><input type=checkbox ${P.useList?'checked':''} onchange="db.prompt.useList=this.checked;save();pkPromptUpd()"> Meine vorhandenen Wörter einfügen (verhindert Duplikate, auch über mehrere Chats)</label>
+ <div class=row><button class=btn onclick="copyPrompt()">📋 Prompt kopieren</button><small id=pinfo></small></div>
+ <details class=inner><summary>Prompt ansehen</summary><textarea id=ptxt rows=14 readonly></textarea></details></details>
+
+ <details class=box open><summary>② Screenshots bündeln</summary>
+ <div id=drop>Screenshots hierher ziehen, klicken oder einfügen (Strg+V)<br><small>PNG / JPG / WEBP, beliebig viele · nichts wird hochgeladen</small><input type=file id=fi accept="image/*" multiple hidden></div>
+ <div class=row><span id=cnt class=mut>0 Bilder</span><button class="btn ghost sm" onclick="pkClear()">Alle entfernen</button></div><div class=thumbs id=thumbs></div>
+ <div class=tabs><button class="${pk.mode==='img'?'on':''}" onclick="pkMode('img')">A · Bildbögen (empfohlen)</button><button class="${pk.mode==='ocr'?'on':''}" onclick="pkMode('ocr')">B · Nur Text (OCR)</button></div>
+ <div class=row><label>Ziel-KI <select onchange="pkPreset(this.value)">${[['claude','Claude'],['gpt','ChatGPT'],['gem','Gemini'],['own','Eigene Werte']].map(([v,t])=>`<option value=${v} ${c.preset===v?'selected':''}>${t}</option>`).join('')}</select></label>
+ ${pn('edge','Max. Kante px',80)}${pn('maxmb','MB/Bogen',60)}${pn('permsg','Bögen/Paket',60)}</div>
+ <div class=row><label>Spalten <select onchange="pkSet('cols',+this.value)">${[1,2,3,4].map(n=>`<option ${c.cols===n?'selected':''}>${n}</option>`).join('')}</select></label>${pn('top','Oben abschneiden %',60)}${pn('bot','Unten abschneiden %',60)}${pn('gap','Abstand px',60)}${pn('q','JPEG %',60)}
+ <label><input type=checkbox ${c.num?'checked':''} onchange="pkSet('num',this.checked)"> Nummern</label></div>
+ ${pk.mode==='img'?`<small>Richtwerte – Limits der Anbieter ändern sich. Kleine Schrift? Weniger Spalten wählen.</small><div class=row><button class=btn onclick="pkBuild()">Bögen & Pakete erzeugen</button></div>`
+  :`<small>Liest den Text lokal per OCR (Tesseract.js, lädt einmalig die Bibliothek aus dem Netz). Braucht kaum Platz im KI-Chat, kann aber Akzente falsch lesen.</small><div class=row><label>Sprachen <input value="${esc(c.langs)}" size=8 onchange="pkSet('langs',this.value)"></label>${pn('maxch','Zeichen/Paket',90)}<button class=btn onclick="pkOCR()">OCR starten</button></div><progress id=prog value=0 max=1 hidden></progress>`}
+ <div id=pkst class=mut></div><div id=pkres></div></details>
+
+ <details class=box open><summary>③ Senden mit Pausenplan</summary>
+ <p class=mut style="margin-top:0">Die App kann dein echtes Limit bei der KI nicht sehen. Trage hier eine Schätzung ein: wie viele Nachrichten du im Zeitfenster etwa schicken darfst. Der Plan zählt mit, mahnt zu Pausen und warnt vor dem Limit. Meldet die KI trotzdem „Limit erreicht“, drücke den roten Knopf.</p>
+ <div class=row>${pp('budget','Nachrichten',60,'min=1')}${pp('win','pro … Stunden',60,'min=1')}${pp('warn','Warnung ab %',60,'min=10 max=100')}${pp('pause','Pause zw. Paketen (min)',60,'min=0')}
+ <label><input type=checkbox ${Q.notify?'checked':''} onchange="pkNotify(this.checked)"> Benachrichtigen, wenn die Pause vorbei ist</label></div>
+ <div id=banner class=banner></div>
+ <div class=row><button class="btn ghost sm" onclick="pkLimitHit()" style="border-color:var(--bad);color:var(--bad)">⛔ KI meldet Limit erreicht</button><button class="btn ghost sm" onclick="pkUnblock()">Sperre aufheben</button><button class="btn ghost sm" onclick="pkAddMsg()">+1 Nachricht (anderswo gesendet)</button></div>
+ <div id=plan></div>
+ <small>Fortschritt wird gespeichert und im Zwischenstand exportiert. Nach einem Neustart: dieselben Screenshots wieder hinzufügen und Pakete neu erzeugen – die Markierungen erscheinen wieder.</small></details>
+
+ <details class=box open><summary>④ Antwort der KI importieren</summary>
+ <p class=mut style="margin-top:0">Kopiere die Antwort der KI (den ganzen Code-Block) hier hinein – oder lade eine TXT-Datei. Mehrfach-Importe sind sicher: Vorhandene Wörter werden erkannt.</p>
+ <div class=row><input type=file accept=".txt,.text,.md" multiple onchange="readFiles(this.files)"></div>
+ <textarea id=imptxt rows=9 placeholder="#ESLERN v1&#10;#DECK: Mein Deck&#10;===KARTE===&#10;ES: la casa&#10;DE: das Haus"></textarea>
+ <div class=row><label>Deck (falls keine #DECK-Zeile) <input id=impdeck value="${esc(P.deck||(db.cur!=='*'?db.cur:'Standard'))}"></label>
+ <label>Duplikate <select id=impmode><option value=merge>zusammenführen</option><option value=skip>überspringen</option><option value=replace>überschreiben</option></select></label><span id=imppkw></span></div>
+ <div class=row><button class=btn onclick="analyze()">Analysieren</button><button class="btn ghost" onclick="loadSample()">Beispieldaten laden</button></div><div id=imprep></div></details>`,true);
+ pkBind();pkThumbs();pkResult();pkPlan();pkImpSel();pkPromptUpd();pk.prev=planInfo().kind;tickT=setInterval(pkBanner,1000)}
+/* ───────── Statistik ───────── */
+function modeStats(m){let nw=0,lr=0,yg=0,mt=0;const fc=Array(14).fill(0);
+ for(const it of allItems('*',m)){const s=stOf(it.c,m,it.d);if(s.q===0)nw++;else if(s.q!==2){lr++;fc[0]++}else{s.ivl>=21?mt++:yg++;const k=Math.max(0,Math.round((s.due-dayStart())/DAY));if(k<14)fc[k]++}}return{nw,lr,yg,mt,fc}}
+function pStats(){const now=Date.now(),cards=Object.values(db.cards),sp=cards.filter(c=>c.susp).length,MS={card:modeStats('card'),typing:modeStats('typing')};
+ const fc=MS.card.fc.map((v,i)=>v+MS.typing.fc[i]),last=[],heat=[];let sn=0,sa=0;
+ for(let i=29;i>=0;i--){const h=db.hist[dk(now-i*DAY)]||{n:0,a:0};last.push(h.n);sn+=h.n;sa+=h.a}
+ for(let i=83;i>=0;i--)heat.push((db.hist[dk(now-i*DAY)]||{}).n||0);const mx=a=>Math.max(1,...a);
+ const bars=(a,t)=>`<div class=bars>${a.map((v,i)=>`<i style="height:${v/mx(a)*100}%" title="${t(i)}: ${v}"></i>`).join('')}</div>`;
+ const hard=cards.map(c=>[c,c.s.f.lapses+c.s.r.lapses+c.t.f.lapses+c.t.r.lapses]).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1]).slice(0,8);
+ const heatc=v=>v===0?'':`style="background:var(--acc);opacity:${Math.min(1,.25+v/40)}"`;
+ const prow=m=>{let ok=0,bad=0,n=0;for(const c of cards){const a=(c.p||{})[m];if(a&&a[0]+a[1]){n++;ok+=a[0];bad+=a[1]}}return `<tr><td>${PM[m]}</td><td>${n} von ${cards.length}</td><td>${ok+bad?Math.round(ok/(ok+bad)*100)+' %':'–'}</td></tr>`};
+ view(`<h2>Statistik</h2><div class=grid2><div class=box><b>${cards.length}</b> Karten · <b>${Object.keys(db.texts).length}</b> Texte · <b>${sp}</b> pausiert</div>
+ <div class=box>Letzte 30 Tage: <b>${sn}</b> Wiederholungen<br>Trefferquote: <b>${sn?Math.round((1-sa/sn)*100):'–'} %</b></div></div>
+ <div class=box><b>Lernmodi mit Wiederholungsplan</b> <small>(gezählt pro aktiver Richtung, jeder Modus mit eigenem Stand)</small><table><tr><th></th><th>Neu</th><th>Lernen</th><th>Jung</th><th>Reif</th></tr>${['card','typing'].map(m=>`<tr><td>${MODENAME[m]}</td><td>${MS[m].nw}</td><td>${MS[m].lr}</td><td>${MS[m].yg}</td><td>${MS[m].mt}</td></tr>`).join('')}</table></div>
+ <div class=box><b>Übungsmodi</b> <small>(Wörter, die in genau diesem Modus schon geübt wurden)</small><table><tr><th></th><th>Geübt</th><th>Trefferquote</th></tr>${Object.keys(PM).map(prow).join('')}</table></div>
+ <div class=box><b>Fällig in den nächsten 14 Tagen</b> <small>(beide Lernmodi)</small>${bars(fc,i=>i?'in '+i+' Tagen':'heute')}</div>
+ <div class=box><b>Wiederholungen pro Tag (30 Tage)</b>${bars(last,i=>(29-i)+' Tage zurück')}</div>
+ <div class=box><b>Aktivität (12 Wochen)</b><div class=heat style="margin-top:6px">${heat.map(v=>`<i ${heatc(v)} title="${v}"></i>`).join('')}</div></div>
+ <div class=box><b>Schwierigste Wörter</b>${hard.length?'<table>'+hard.map(([c,n])=>`<tr><td class=es onclick="editCard('${c.id}',pStats)">${esc(c.es)}</td><td>${esc(c.de[0])}</td><td>${n}× vergessen</td></tr>`).join('')+'</table>':'<p class=mut>Noch keine.</p>'}</div>`)}
+/* ───────── Einstellungen ───────── */
+function pSettings(){const S=db.set;
+ view(`<h2>Einstellungen</h2><div class=box><h3>Lernplan</h3><p class=mut style="margin-top:0">Gilt für Karteikarten und Tippen (jeder Modus mit eigenem Tageslimit).</p><div class=row>
+ <label>Neue Karten/Tag <input id=s_np type=number min=0 value=${S.newPerDay} style="width:80px"></label><label>Wiederholungen/Tag <input id=s_rp type=number min=0 value=${S.revPerDay} style="width:90px"></label></div>
+ <div class=row><label>Lernschritte (Min.) <input id=s_st value="${S.steps.join(' ')}" style="width:100px"></label><label>Neulernen nach Fehler (Min.) <input id=s_rs value="${S.relSteps.join(' ')}" style="width:100px"></label></div>
+ <div class=row><label>Intervall „Gut“ beim Abschluss (Tage) <input id=s_gi type=number min=1 value=${S.grad} style="width:70px"></label><label>„Leicht“ (Tage) <input id=s_ei type=number min=1 value=${S.easyIvl} style="width:70px"></label></div>
+ <div class=row><label>Start-Faktor <input id=s_ef type=number step=.1 min=1.3 value=${S.ease} style="width:70px"></label><label>Leicht-Bonus <input id=s_eb type=number step=.05 value=${S.easyBonus} style="width:70px"></label><label>Schwer-Faktor <input id=s_hm type=number step=.05 value=${S.hardMul} style="width:70px"></label><label>Leech nach <input id=s_lc type=number min=2 value=${S.leech} style="width:60px"> Fehlern</label></div>
+ <label><input type=checkbox id=s_by ${S.bury?'checked':''}> Gegenrichtung derselben Karte (im selben Modus) bis morgen zurückstellen</label></div>
+ <div class=box><h3>Tippen</h3><label><input type=checkbox id=s_sc ${S.strict?'checked':''}> Fehlende Akzente/Umlaute als „Schwer“ werten</label><br><label><input type=checkbox id=s_na ${S.needArt?'checked':''}> Artikel muss mitgetippt werden</label><br><label><input type=checkbox id=s_as ${S.autoSpeak?'checked':''}> Spanische Wörter automatisch vorlesen</label></div>
+ <div class=box><h3>Aussehen</h3><select id=s_th>${[['auto','automatisch'],['light','hell'],['dark','dunkel']].map(([v,t])=>`<option value=${v} ${S.theme===v?'selected':''}>${t}</option>`).join('')}</select></div>
+ <div class=row><button class=btn onclick="saveSet()">Speichern</button><span class=mut>Sicherung, Export und Import findest du unter „Daten“.</span></div>`)}
+function saveSet(){const S=db.set,n=(id,d)=>{const v=parseFloat($('#'+id).value);return isNaN(v)?d:v},l=id=>$('#'+id).value.split(/[\s,;]+/).map(Number).filter(x=>x>0);
+ Object.assign(S,{newPerDay:n('s_np',20),revPerDay:n('s_rp',200),steps:l('s_st'),relSteps:l('s_rs'),grad:n('s_gi',1),easyIvl:n('s_ei',4),ease:n('s_ef',2.5),easyBonus:n('s_eb',1.3),hardMul:n('s_hm',1.2),leech:n('s_lc',8),bury:$('#s_by').checked,strict:$('#s_sc').checked,needArt:$('#s_na').checked,autoSpeak:$('#s_as').checked,theme:$('#s_th').value});save();applyTheme();toast('Gespeichert')}
+/* ═════════ DATEN: Zwischenstand · Export für andere Apps ═════════ */
+function dl(name,data,type){const a=document.createElement('a');a.href=URL.createObjectURL(data instanceof Blob?data:new Blob([data],{type:type||'text/plain;charset=utf-8'}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),3000)}
+const copyText=t=>(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast('Kopiert'),()=>{const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();toast('Kopiert')});
+function stateObj(){return{format:'ESLEARN-STATE',version:2,app:'Español Learn',exported:new Date().toISOString(),profile:db.profile||'',summary:{cards:Object.keys(db.cards).length,texts:Object.keys(db.texts).length,decks:db.decks.length},data:db}}
+function expState(){db.lastExport=Date.now();save();const nm=(db.profile||'zwischenstand').replace(/[^\wäöüÄÖÜß-]+/g,'_');dl(`esl-zwischenstand-${nm}-${dk(Date.now())}.json`,JSON.stringify(stateObj()),'application/json');toast('Zwischenstand exportiert');if(route==='data')pData()}
+function mergeState(inc){let add=0,upd=0;const idx={};for(const c of Object.values(db.cards))idx[c.deck+'|'+keyOf(c.es)]=c;
+ for(const c of Object.values(inc.cards)){const k=c.deck+'|'+keyOf(c.es),ex=idx[k];
+  if(!ex){if(db.cards[c.id])c.id=uid();db.cards[c.id]=c;idx[k]=c;ensureDeck(c.deck);add++}
+  else{for(const m of ['s','t'])for(const d of ['f','r'])if(c[m][d].reps>ex[m][d].reps)ex[m][d]=c[m][d];
+   for(const m of Object.keys(c.p||{})){const a=(ex.p[m]||[0,0]),b=c.p[m];if(b[0]+b[1]>a[0]+a[1])ex.p[m]=b}
+   ex.mark=ex.mark||c.mark;ex.susp=ex.susp||c.susp;c.tags.forEach(x=>{if(!ex.tags.includes(x))ex.tags.push(x)});c.de.forEach(x=>{if(!ex.de.some(y=>keyOf(y)===keyOf(x)))ex.de.push(x)});c.alt.forEach(x=>{if(!ex.alt.some(y=>keyOf(y)===keyOf(x)))ex.alt.push(x)});
+   for(const f of ['hint','bsp','bspde','bsp2','bsp2de'])if(!ex[f]&&c[f])ex[f]=c[f];upd++}}
+ const T={};Object.values(db.texts).forEach(x=>T[x.deck+'|'+norm(x.title)]=x);let tn=0;
+ for(const x of Object.values(inc.texts)){const k=x.deck+'|'+norm(x.title);if(T[k]){T[k].best=Math.max(T[k].best||0,x.best||0)}else{const id=db.texts[x.id]?uid():x.id;db.texts[id]={...x,id};T[k]=db.texts[id];ensureDeck(x.deck);tn++}}
+ for(const [k,h] of Object.entries(inc.hist))if(!db.hist[k]||h.n>db.hist[k].n)db.hist[k]=h;
+ for(const [k,d] of Object.entries(inc.daily)){const o=db.daily[k]||(db.daily[k]={});for(const m of Object.keys(d))if(!o[m]||(d[m].n+d[m].r)>(o[m].n+o[m].r))o[m]=d[m]}
+ inc.decks.forEach(ensureDeck);Object.assign(db.pack.jobs,Object.fromEntries(Object.entries(inc.pack.jobs).filter(([k])=>!db.pack.jobs[k])));
+ return{add,upd,tn}}
+async function impState(){const f=$('#d_fi').files[0];if(!f){toast('Bitte zuerst eine Datei wählen');return}let j;try{j=JSON.parse(await f.text())}catch(e){toast('Keine gültige JSON-Datei');return}
+ const raw=j&&j.format==='ESLEARN-STATE'?j.data:(j&&j.cards?j:null);if(!raw){toast('Das ist keine Zwischenstand-Datei');return}
+ const inc=normalize(JSON.parse(JSON.stringify(raw))),mode=$('#d_mode').value,nc=Object.keys(inc.cards).length,nt=Object.keys(inc.texts).length;
+ if(mode==='replace'){if(!confirm(`Alle aktuellen Daten durch den Zwischenstand ersetzen?\n\nDatei: ${nc} Karten, ${nt} Texte${j.exported?` (exportiert ${new Date(j.exported).toLocaleString('de-DE')})`:''}\nAktuell: ${Object.keys(db.cards).length} Karten`))return;
+  db=inc;db.ver=2;save();applyTheme();toast(`Zwischenstand geladen: ${nc} Karten, ${nt} Texte`);go('home')}
+ else{const r=mergeState(inc);save();toast(`Zusammengeführt: ${r.add} neue Karten, ${r.upd} abgeglichen, ${r.tn} neue Texte`);pData()}}
+function resetAll(){if(confirm('WIRKLICH alle Karten, Texte und Fortschritt löschen?')&&confirm('Letzte Warnung – das kann nicht rückgängig gemacht werden. (Tipp: vorher einen Zwischenstand exportieren.)')){localStorage.removeItem(KEY);load();go('home')}}
+function copyList(){copyText(Object.values(db.cards).map(c=>c.es).join('; '))}
+/* Export für andere Apps */
+let xp={fmt:'anki_basic',deck:'*'};
+const EXF={
+ anki_basic:['Anki – Karteikarten Spanisch → Deutsch (mit Hinweis & Beispielsatz)','txt','Anki öffnen → Datei → Importieren → diese Datei wählen. Notiztyp „Basic“ (bei deutscher Oberfläche „Einfach“), Trennzeichen „Tabulator“, „HTML in Feldern erlauben“ an. Anki 2.1.55+ erkennt Notiztyp, Deck, Tags und ID automatisch. Durch die ID-Spalte aktualisiert ein erneuter Import vorhandene Notizen, statt Duplikate zu erzeugen. Der Lernstand wird nicht übertragen: In Anki starten die Karten neu.'],
+ anki_rev:['Anki – Karteikarten in beide Richtungen (nur Bedeutung)','txt','Wie oben, aber Notiztyp „Basic (and reversed card)“ („Einfach (+ umgekehrte Karte)“). Die Rückseite enthält nur die Bedeutung, damit Beispielsätze die Lösung nicht verraten.'],
+ anki_cloze:['Anki – Lückentexte (Cloze) aus Beispielsätzen & Texten','txt','Notiztyp „Cloze“ („Lückentext“). Jeder Beispielsatz wird eine Lückenkarte, jeder Lückentext eine Notiz mit einer Karte pro Lücke. Die deutsche Bedeutung steht als Hinweis in der Lücke.'],
+ quizlet:['Quizlet / Cram / Brainscape (Begriff ⇥ Definition)','txt','Quizlet: Erstellen → Importieren → Datei-Inhalt einfügen. „Zwischen Begriff und Definition“: Tab, „Zwischen Zeilen“: Neue Zeile.'],
+ csv:['CSV für Excel, Memrise, Notion … (alle Felder)','csv','Semikolon-getrennt, UTF-8 mit BOM (Excel öffnet Umlaute korrekt). Erste Zeile = Spaltenüberschriften.'],
+ esl:['ESLERN v1 TXT (zum Wiedereinlesen in diese App)','txt','Lesbares Austauschformat inklusive Lückentexten. Ohne Lernstand – dafür ist der Zwischenstand da.']};
+const exCards=deck=>Object.values(db.cards).filter(c=>deck==='*'||c.deck===deck).sort((a,b)=>a.created-b.created);
+const exTexts=deck=>Object.values(db.texts).filter(t=>deck==='*'||t.deck===deck);
+const cell=s=>String(s==null?'':s).replace(/[\t\r\n]+/g,' ').trim();
+const ntag=s=>String(s).trim().replace(/\s+/g,'_');
+const ankiTags=c=>[...new Set([c.typ!=='sonstiges'?c.typ:'',...c.tags].filter(Boolean).map(ntag))].join(' ');
+const clz=s=>String(s).replace(/::/g,': :').replace(/[{}]/g,'');
+function eslText(deck){let o='#ESLERN v1\n';for(const d of db.decks){if(deck!=='*'&&d!==deck)continue;const C=exCards('*').filter(c=>c.deck===d),T=exTexts('*').filter(t=>t.deck===d);if(!C.length&&!T.length)continue;o+=`#DECK: ${d}\n\n`;
+ for(const c of C)o+=`===KARTE===\nES: ${c.es}\nDE: ${c.de.join(' ; ')}\n`+(c.alt.length?`ALT: ${c.alt.join(' ; ')}\n`:'')+`TYP: ${c.typ}\n`+(c.hint?`HINWEIS: ${c.hint}\n`:'')+(c.bsp?`BSP: ${c.bsp}\nBSP_DE: ${c.bspde}\n`:'')+(c.bsp2?`BSP2: ${c.bsp2}\nBSP2_DE: ${c.bsp2de}\n`:'')+(c.tags.length?`TAGS: ${c.tags.join(', ')}\n`:'')+'\n';
+ for(const t of T)o+=`===TEXT===\nTITEL: ${t.title}\n`+(t.level?`NIVEAU: ${t.level}\n`:'')+`ES: ${t.es}\n`+(t.de?`DE: ${t.de}\n`:'')+'\n'}return o}
+function clozeRows(deck){const idx=cardIdx(),rows=[];
+ for(const c of exCards(deck)){[[c.bsp,c.bspde,'1'],[c.bsp2,c.bsp2de,'2']].forEach(([s,de,n])=>{if(!s)return;const parts=sentGap(c,s);if(!parts)return;let k=0;
+  const text=parts.map(p=>p.g?`{{c${++k}::${esc(clz(p.a))}${c.de[0]?'::'+esc(clz(c.de[0])):''}}}`:esc(p.t)).join('');
+  rows.push([text,`${esc(de||'')}<br><small>${esc(c.es)} = ${c.de.map(esc).join('; ')}</small>`,c.deck,ankiTags(c),'eslc'+c.id+'_'+n])})}
+ for(const t of exTexts(deck)){let k=0;const text=t.es.split(/\s*\/\/\s*/).map(p=>parseGaps(p).map(x=>{if(!x.g)return esc(x.t);const c=idx[keyOf(x.l)],h=c&&c.de[0]?'::'+esc(clz(c.de[0])):'';return `{{c${++k}::${esc(clz(x.a))}${h}}}`}).join('')).join('<br><br>');
+  rows.push([text,esc(t.de||'').replace(/ \/\/ /g,'<br><br>'),t.deck,'esl text'+(t.level?' '+ntag(t.level):''),'eslt'+t.id])}
+ return rows}
+function expBuild(fmt,deck){const C=exCards(deck),H=['#separator:tab','#html:true'],tab=rows=>rows.map(r=>r.map(cell).join('\t')).join('\n');
+ if(fmt==='anki_basic'){H.push('#notetype:Basic','#deck column:3','#tags column:4','#guid column:5');
+  return H.join('\n')+'\n'+tab(C.map(c=>{let b=c.de.map(esc).join('; ');if(c.alt.length)b+=`<br><small>auch: ${c.alt.map(esc).join(', ')}</small>`;if(c.hint)b+=`<br><i>💡 ${esc(c.hint)}</i>`;
+   for(const [x,y] of [[c.bsp,c.bspde],[c.bsp2,c.bsp2de]])if(x)b+=`<br><br>${bspHTML(x)}<br><small>${esc(y)}</small>`;return[esc(c.es),b,c.deck,ankiTags(c),'esl'+c.id]}))}
+ if(fmt==='anki_rev'){H.push('#notetype:Basic (and reversed card)','#deck column:3','#tags column:4','#guid column:5');
+  return H.join('\n')+'\n'+tab(C.map(c=>[esc(c.es),c.de.map(esc).join('; '),c.deck,ankiTags(c),'eslr'+c.id]))}
+ if(fmt==='anki_cloze'){H.push('#notetype:Cloze','#deck column:3','#tags column:4','#guid column:5');const R=clozeRows(deck);return R.length?H.join('\n')+'\n'+tab(R):''}
+ if(fmt==='quizlet')return C.map(c=>cell(c.es)+'\t'+cell(c.de.join('; '))).join('\n');
+ if(fmt==='csv'){const q=s=>'"'+String(s==null?'':s).replace(/"/g,'""').replace(/\r?\n/g,' ')+'"';
+  return ['Spanisch','Deutsch','Varianten','Typ','Hinweis','Beispiel','Beispiel (DE)','Beispiel 2','Beispiel 2 (DE)','Tags','Deck'].map(q).join(';')+'\n'+C.map(c=>[c.es,c.de.join('; '),c.alt.join('; '),c.typ,c.hint,plain(c.bsp),c.bspde,plain(c.bsp2),c.bsp2de,c.tags.join(', '),c.deck].map(q).join(';')).join('\n')}
+ return eslText(deck)}
+function xpUpd(){const t=expBuild(xp.fmt,xp.deck),L=t?t.split('\n'):[],n=exCards(xp.deck).length;
+ $('#exprev').value=L.length?L.slice(0,14).join('\n')+(L.length>14?`\n… (${L.length-14} weitere Zeilen)`:''):'(Nichts zu exportieren – für dieses Format fehlen passende Daten.)';
+ $('#exinfo').innerHTML=`<b>${n}</b> Karten${xp.fmt==='anki_cloze'?` · <b>${clozeRows(xp.deck).length}</b> Lückennotizen`:''}${xp.fmt==='esl'?` · <b>${exTexts(xp.deck).length}</b> Texte`:''}<p class=mut style="margin:6px 0 0">${EXF[xp.fmt][2]}</p>`;
+ $('#exdl').disabled=!L.length;$('#excp').disabled=!L.length}
+function xpDl(){const t=expBuild(xp.fmt,xp.deck);if(!t){toast('Nichts zu exportieren');return}const f=EXF[xp.fmt],nm=xp.fmt.replace('_','-')+'-'+(xp.deck==='*'?'alle-decks':xp.deck.replace(/[^\wäöüÄÖÜß-]+/g,'_'))+'.'+f[1];dl(nm,(f[1]==='csv'?'﻿':'')+t,f[1]==='csv'?'text/csv;charset=utf-8':'text/plain;charset=utf-8')}
+function xpCp(){const t=expBuild(xp.fmt,xp.deck);if(t)copyText(t)}
+function pData(){const nc=Object.keys(db.cards).length,nt=Object.keys(db.texts).length,decks=db.decks.filter(d=>Object.values(db.cards).some(c=>c.deck===d)||Object.values(db.texts).some(t=>t.deck===d));
+ if(xp.deck!=='*'&&!decks.includes(xp.deck))xp.deck='*';
+ view(`<h2>Daten</h2>
+ <div class=box><h3 style="margin-top:0">💾 Zwischenstand – alles in einer Datei</h3>
+ <p class=mut style="margin-top:0">Enthält <b>alles</b>: ${nc} Karten mit Lernstand (Karteikarten &amp; Tippen getrennt), Übungsstatistik je Modus, ${nt} Lückentexte inkl. Bestwerte, Tagesstatistik &amp; Verlauf, Einstellungen, Prompt-Einstellungen und den Fortschritt des Sendeplans. Damit kannst du auf einem anderen Gerät oder Browser genau da weitermachen, wo du aufgehört hast.</p>
+ <div class=row><label>Name / Profil <input value="${esc(db.profile)}" placeholder="z. B. Anna" oninput="db.profile=this.value;save()"></label><button class=btn onclick="expState()">⬇ Zwischenstand exportieren</button><small>Letzter Export: ${db.lastExport?new Date(db.lastExport).toLocaleString('de-DE'):'noch nie'}</small></div>
+ <div class=row><input type=file id=d_fi accept=".json,application/json"><label>Modus <select id=d_mode><option value=replace>Ersetzen (alles überschreiben)</option><option value=merge>Zusammenführen (Fortschritt mit mehr Wiederholungen gewinnt)</option></select></label><button class="btn ghost" onclick="impState()">⬆ Einlesen</button></div>
+ <small>Akzeptiert auch Backups der älteren Versionen (Español Trainer). Deine Daten liegen sonst nur in diesem Browser – exportiere regelmäßig.</small></div>
+
+ <div class=box><h3 style="margin-top:0">📤 Export für andere Lern-Apps</h3>
+ <div class=row><label>Format <select onchange="xp.fmt=this.value;xpUpd()">${Object.entries(EXF).map(([k,v])=>`<option value=${k} ${xp.fmt===k?'selected':''}>${v[0]}</option>`).join('')}</select></label>
+ <label>Deck <select onchange="xp.deck=this.value;xpUpd()"><option value="*">alle Decks</option>${decks.map(d=>`<option ${xp.deck===d?'selected':''}>${esc(d)}</option>`).join('')}</select></label></div>
+ <div id=exinfo class=box style="margin:6px 0"></div>
+ <textarea id=exprev rows=8 readonly></textarea>
+ <div class=row><button class=btn id=exdl onclick="xpDl()">⬇ Datei herunterladen</button><button class="btn ghost" id=excp onclick="xpCp()">Kopieren</button></div></div>
+
+ <div class=box><h3 style="margin-top:0">Weiteres</h3><div class=row><button class="btn ghost" onclick="copyList()">Wortliste kopieren (für den KI-Prompt)</button><button class="btn ghost" onclick="resetAll()" style="color:var(--bad)">Alles löschen</button></div></div>`);xpUpd()}
+/* ───────── Tastatur ───────── */
+document.addEventListener('keydown',e=>{if($('#dlg').open||e.ctrlKey||e.metaKey||e.altKey)return;const k=e.key,inp=/INPUT|TEXTAREA|SELECT/.test(e.target.tagName);
+ if(route==='study'&&ses){
+  if(inp){if(e.target.id==='ti'&&k==='Enter'){e.preventDefault();doCheck()}return}
+  if(!ses.it)return;
+  if(!ses.shown){if(ses.mode==='card'&&(k===' '||k==='Enter')){e.preventDefault();reveal()}}
+  else if(k.length===1&&'1234'.includes(k))rate(+k);else if(k===' '||k==='Enter'){e.preventDefault();rate((ses.res&&ses.res.sug)||3)}
+  if(k==='z')undo();else if(k==='e')editCard(ses.it.c.id,()=>render());else if(k==='s')susp();else if(k==='b')bury();else if(k==='m')mark();else if(k==='p')speak(ses.it.c.es)}
+ else if(route==='quiz'&&qz&&!inp){const q=qz.q[qz.i];if(!q)return;if(q.ans==null&&k.length===1&&'1234'.includes(k)&&q.opts[+k-1])qPick(+k-1);else if(q.ans!=null&&k==='Enter')qNext()}
+ else if(route==='text'&&e.target.classList&&e.target.classList.contains('gap')&&k==='Enter'){e.preventDefault();const g=$$('input.gap'),i=g.indexOf(e.target);if(i<g.length-1)g[i+1].focus();else checkText()}});
+function init(){load();applyTheme();if('speechSynthesis' in window)speechSynthesis.onvoiceschanged=()=>{_v=null};render()}
+init();
+</script>
+</body>
+</html>
